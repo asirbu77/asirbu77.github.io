@@ -1,35 +1,37 @@
 # Site Settings
-title: "Nanda H Krishna"
+title: "Aidan Sirbu"
 title_separator: "–"
-url: "https://nandahkrishna.com"
+url: "https://asirbu77.github.io"
 locale: "en-IN"
 timezone: "America/Montreal"
 
 # Site Author
 author:
-  name: "Nanda H Krishna"
-  tagline: "PhD Candidate at Mila & UdeM"
+  name: "Aidan Sirbu"
+  tagline: "MSc Student at Mila & McGill University"
   avatar: "profile.png"
   og_image: "icon.jpg"
   bio-short: >-
-    My research interests lie at the intersection of Computational Neuroscience and Deep Learning. Through my theoretical research, I aim to uncover how learning shapes neural computation. I also work on foundation models for generalisable and real-time decoding in brain-computer interfaces.
+    My research interests lie at the intersection of deep learning and computational neuroscience. My focus is on building embodied agents for investigating theories of motor control and sensorimotor learning.
   bio: >-
-    <p>I am a PhD Candidate supervised by <a href='https://www.guillaumelajoie.com' target='_blank' rel='noopener noreferrer'>Guillaume Lajoie</a> at Mila – Quebec AI Institute and Université de Montréal. My research interests lie at the intersection of Computational Neuroscience and Deep Learning. I am specifically interested in developing a theoretical understanding of how learning shapes computation in brains and artificial neural networks. I also work on building foundation models for neuroscience, with the goal of improving decoding in brain-computer interfaces.</p>
+    <p>I am a MSc student supervised by <a href='https://mila.quebec/en/directory/blake-richards' target='_blank' rel='noopener noreferrer'> Dr. Blake A. Richards</a> at Mila – Quebec AI Institute and McGill University. My research interests lie at the intersection of deep learning and computational neuroscience. I am particularly interested in building embodied agents to investigate theories of motor control and sensorimotor learning.</p>
 
-    <p>My current projects include modelling the effects of learning histories and curricula on compositional generalisation, mechanistically unifying reinforcement learning paradigms using local learning rules, and developing generalisable, real-time decoders for brain-computer interfaces using foundation models of neural activity.</p>
+    <p>My current projects focus on developing a framework for simulating and training embodied neuro-agents in virtual physics environments, as well as exploring the use of generative models for understanding and predicting motor behaviors.</p>
+    
+    <p>Before I joined Mila, I completed my BSc in Medical Physics at Western University where I worked on projects related to hyperpolarized MRI.</p>
 
-    <p>Aside from research, I am passionate about teaching, open science and open source software. Currently, I am an active maintainer of the <a href='https://brew.sh' target='_blank' rel='noopener noreferrer'>Homebrew</a> package manager for macOS (and Linux). Here are some of my other interests: languages, cricket, tennis, comics (manga and manhwa), music (mostly Carnatic, Indian film, and Asian), theatre, and quizzing.</p>
+    <p>In my free time, I am an avid rock climber, hiker, and motorcycle rider.</p>
 
-    <p>Feel free to reach out if you are interested in collaborating, discussing research, or even just chatting!</p>
-  location: "Montréal & Chennai"
-  email: "me@nandahkrishna.com"
+    <p>Don't hesitate to reach out if you are interested in collaborating, discussing research, or even just chatting!</p>
+  location: "Montréal, Canada"
+  email: "aidan.sirbu@mila.quebec"
   social:
-    github: "https://github.com/nandahkrishna"
-    google-scholar: "https://scholar.google.com/citations?hl=en&user=OIdDa5kAAAAJ&view_op=list_works&sortby=pubdate"
-    orcid: "https://orcid.org/0000-0001-8036-2789"
-    linkedin: "https://linkedin.com/in/nandahkrishna"
-    x-twitter: "https://twitter.com/nandahkrishna"
-    bluesky: "https://bsky.app/profile/nandahkrishna.bsky.social"
+    github: "https://github.com/asirbu77"
+    google-scholar: "https://scholar.google.com/citations?user=VQ1HT0oAAAAJ&hl=en"
+    orcid: "https://orcid.org/0000-0002-0154-3563"
+    linkedin: "https://www.linkedin.com/in/aidansirbu/"
+    # x-twitter: "https://twitter.com/nandahkrishna"
+    bluesky: "https://bsky.app/profile/sirbu.bsky.social"
 
 # Analytics
 analytics:
@@ -37,9 +39,9 @@ analytics:
   measurement_id: "G-4NJNK1CES8"
 
 # Mapbox
-mapbox:
-  activate: true
-  token: "pk.eyJ1IjoibmFuZGFoa3Jpc2huYSIsImEiOiJjbHJ0bDRoNzYwNXdlMm50ZWNtNzBseHQ1In0._L-eeGKeLcyrSDa8cuF1nA"
+# mapbox:
+#   activate: true
+#   token: "pk.eyJ1IjoibmFuZGFoa3Jpc2huYSIsImEiOiJjbHJ0bDRoNzYwNXdlMm50ZWNtNzBseHQ1In0._L-eeGKeLcyrSDa8cuF1nA"
 
 # Reading Files
 include:

@@ -1,20 +1,16 @@
 languages:
   programming:
     - <i class="fa-brands fa-python"></i> Python
-    - <i class="fa-solid fa-gem"></i> Ruby
+    - <i class="fa-solid fa-cubes"></i> MATLAB
+    - <i class="fa-brands fa-java"></i> Java
   human:
     - English
-    - Tamil
-    - Hindi
-    - Sanskrit
     - French
-    - Korean
-    - Japanese
+    - Romanian
 
 tools:
   - <i class="fa-solid fa-fire-flame-curved"></i> PyTorch
-  - <i class="fa-solid fa-pepper-hot"></i> Flask
-  - <i class="fa-brands fa-docker"></i> Docker
+  - <i class="fa-solid fa-hexagon-nodes"></i> Jax
   - <i class="fa-brands fa-git-alt"></i> Git
   - <i class="fa-solid fa-file"></i> LaTeX
   - <i class="fa-solid fa-splotch"></i> Inkscape
