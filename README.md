@@ -1,3 +1,3 @@
 # Personal Website
 
-This repository contains the source code for my personal website, accessible at https://nandahkrishna.com.
+This repository contains the source code for my personal website, accessible at https://aidansirbu.com.
