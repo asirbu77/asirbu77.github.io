@@ -127,4 +127,55 @@
       }, 3000);
     }
   </script>
+
+  <!-- Mobile Safari tile fixes -->
+  <style>
+    /* Fix for mobile Safari tile overlapping issues */
+    @media screen and (max-width: 768px) {
+      .tile {
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        margin-bottom: 1.5rem !important;
+      }
+      
+      .tile.is-vertical {
+        display: block !important;
+        flex-direction: column !important;
+      }
+      
+      .tile.is-child {
+        display: block !important;
+        flex: none !important;
+        width: 100% !important;
+        height: auto !important;
+      }
+      
+      /* Ensure proper spacing on mobile */
+      .padded-block {
+        min-height: auto !important;
+        height: auto !important;
+      }
+      
+      /* Fix for webkit flexbox issues on mobile Safari */
+      .tile.is-vertical .tile {
+        -webkit-flex: none !important;
+        flex: none !important;
+        width: 100% !important;
+      }
+    }
+    
+    /* Additional Safari-specific fixes */
+    @supports (-webkit-touch-callout: none) {
+      .tile {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+      }
+      
+      .tile.is-vertical {
+        -webkit-flex-direction: column;
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
