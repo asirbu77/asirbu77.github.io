@@ -50,25 +50,32 @@ permalink: /
     </div>
 
     <div class="tile is-child">
-        <div class="padded-block" style="margin-right: 0 !important;">
-            <span class="title"><button
-                        class="ghost-button tag is-info is-light has-text-weight-bold is-medium tile-header is-large"><i
-                            class="fa-solid fa-newspaper"></i>&nbsp;&nbsp;News</button></span>
-            <div class="scrollable-container">
-                <div class="scrollable-content" style="height: 144px;">
-                    <table>
-                        {% for item in site.data.news %}
-                        <tr>
-                            <td class="no-wrap"><span>{{ item.date | date: "%b %Y" }}</span></td>
-                            <td class="no-wrap">&nbsp;<i class="fa-solid fa-chevron-right fa-2xs fa-fw"></i>&nbsp;
-                            </td>
-                            <td>{{ item.news }}</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
+        <a href="{{ '/news/' | relative_url }}" style="text-decoration: none; color: inherit;">
+            <div class="padded-block" style="margin-right: 0 !important;">
+                <span class="title"><button
+                            class="ghost-button tag is-info is-light has-text-weight-bold is-medium tile-header is-large"><i
+                                class="fa-solid fa-newspaper"></i>&nbsp;&nbsp;News</button></span>
+                <div class="scrollable-container">
+                    <div class="scrollable-content" style="height: 144px;">
+                        <table>
+                            {% for item in site.data.news %}
+                            <tr>
+                                <td class="no-wrap"><span>{{ item.date | date: "%b %Y" }}</span></td>
+                                <td class="no-wrap">&nbsp;<i class="fa-solid fa-chevron-right fa-2xs fa-fw"></i>&nbsp;
+                                </td>
+                                <td>
+                                    {{ item.news }}
+                                    {% if item.image or item.images %}
+                                    &nbsp;<i class="fa-solid fa-image fa-xs" style="color: #3e8ed0;" title="This news item has an associated image"></i>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
 </div>
 

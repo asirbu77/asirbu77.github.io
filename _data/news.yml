@@ -1,3 +1,9 @@
+- date: 2025-11-18
+  news: "I had the pleasure of giving an invited talk <i>Embodied Agents for NeuroAI</i> at the <a href='https://arni-institute.org/' target='_blank' rel='noopener noreferrer'>ARNI</a> annual retreat at <a href='https://www.columbia.edu/' target='_blank' rel='noopener noreferrer'>Columbia University</a>"
+  images:
+    - "arni2025_photo.jpg"
+    - "arni2025_slide.jpeg"
+
 - date: 2025-09-01
   news: "I have transferred to the <a href='https://www.mcgill.ca/gradapplicants/program/computer-science-msc' target='_blank' rel='noopener noreferrer'>MSc program in Computer Science</a> at McGill University."
 

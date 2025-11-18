@@ -1,3 +1,6 @@
+- image: av1.jpg
+  caption: Hiking the AV1
+
 - image: camino.jpg
   caption: Hiking the Camino de Santiago
 
@@ -6,6 +9,3 @@
 
 - image: motorcycle.jpg
   caption: Out for a ride
-
-- image: av1.jpg
-  caption: Hiking the AV1
