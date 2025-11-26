@@ -527,12 +527,7 @@ hr {
     // Education section - prevent overflow
     .education-tile {
         .fa-ul {
-            font-size: 0.8em !important;
-            line-height: 1.6 !important;
-            margin-left: 1.2em !important;
-            
             li {
-                margin-bottom: 0.5em !important;
                 word-wrap: break-word !important;
                 overflow-wrap: break-word !important;
                 hyphens: auto;
@@ -556,32 +551,15 @@ hr {
             overflow: visible !important;
             
             .panel-block {
-                font-size: 0.75em !important;
-                padding: 0.35em 0.5em !important;
-                line-height: 1.4 !important;
                 word-wrap: break-word !important;
                 overflow-wrap: break-word !important;
                 hyphens: auto;
-            }
-            
-            .panel-heading {
-                font-size: 0.85em !important;
-                padding: 0.5em 0.65em !important;
-            }
-            
-            .panel-icon {
-                font-size: 0.9em;
             }
         }
         
         // Coding section - adjust skills list
         .skill-ul {
-            font-size: 0.8em !important;
-            margin-left: 1.2em !important;
-            
             li {
-                margin-bottom: 0.5em !important;
-                line-height: 1.5 !important;
                 word-wrap: break-word !important;
                 overflow-wrap: break-word !important;
                 hyphens: auto;
@@ -605,12 +583,7 @@ hr {
         }
         
         .chevron-ul {
-            margin-left: 0.8em !important;
-            
             li {
-                font-size: 0.8em !important;
-                margin-bottom: 0.5em !important;
-                line-height: 1.5 !important;
                 word-wrap: break-word !important;
                 overflow-wrap: break-word !important;
                 hyphens: auto;
@@ -623,28 +596,11 @@ hr {
         }
     }
 
-    // Adjust list spacing for tablets
+    // Adjust list spacing for tablets - keep word wrapping
     .chevron-ul li,
     .skill-ul li {
-        margin-bottom: 0.4em;
-        line-height: 1.5;
-    }
-
-    // Reduce padding in tiles for tablets
-    .tile.is-child {
-        padding: 0.65em !important;
-    }
-
-    // Reduce title/button sizes slightly
-    .tile-header {
-        font-size: 0.85em !important;
-        padding: 0.45em 0.7em !important;
-    }
-    
-    // Ensure the title buttons don't add extra height
-    .title {
-        margin-bottom: 0.3rem !important;
-        font-size: 1.3rem !important;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 }
 
