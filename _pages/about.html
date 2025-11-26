@@ -28,7 +28,7 @@ permalink: /
 
 {% assign latest = site.data.publications.first %}
 <div class="tile">
-    <div class="tile is-child is-5" style="max-height: 240px;">
+    <div class="tile is-child is-5 latest-pub-tile" style="max-height: 240px;">
         <div class="padded-block">
             <span class="title"><button
                     class="ghost-button tag is-danger is-light has-text-weight-bold is-medium tile-header is-large"><i
@@ -49,7 +49,7 @@ permalink: /
         </div>
     </div>
 
-    <div class="tile is-child">
+    <div class="tile is-child news-tile" style="max-height: 240px;">
         <a href="{{ '/news/' | relative_url }}" style="text-decoration: none; color: inherit;">
             <div class="padded-block" style="margin-right: 0 !important;">
                 <span class="title"><button
@@ -84,7 +84,7 @@ permalink: /
         <div class="padded-block" style="margin-right: 0 !important;">
             <span class="title"><button
                     class="ghost-button tag is-success is-light has-text-weight-bold is-medium tile-header is-large"><i
-                        class="fa-regular fa-user"></i>&nbsp;&nbsp;Bio</button></span><br>
+                        class="fa-regular fa-user"></i>&nbsp;&nbsp;Bio</button></span>
             <div class="scrollable-container bio-scrollable">
                 <div class="scrollable-content bio-content" style="height: 324px;">
                     {{ site.author.bio }}

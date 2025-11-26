@@ -139,6 +139,20 @@ a:hover {
 
     .gallery {
         height: 320px;
+        overflow-x: hidden; // Prevent horizontal scroll on mobile
+    }
+    
+    .film-strip {
+        padding: 0 18px; // Maintain vertical padding but prevent overflow
+        width: 100%; // Ensure it doesn't extend beyond container
+        box-sizing: border-box; // Include padding in width calculation
+    }
+    
+    .gallery-wrap {
+        .gallery-image {
+            width: 100%; // Ensure images don't cause horizontal overflow
+            height: auto;
+        }
     }
 }
 
@@ -151,9 +165,13 @@ a:hover {
           conic-gradient(at 50% var(--s), var(--c) 75%,#eeeeee 0) 
           0 0/calc(2*var(--s)) calc(100% - var(--s)) padding-box;
         border: var(--s) solid var(--c);
-        padding: 0;
-        height: 300px;
-        width: calc(2 * 12px + 4 * 324px + 320px + 4 * 4.2px);
+        padding-left: 18px;
+        padding-right: 18px;
+        padding-top: 0;
+        padding-bottom: 0;
+        height: auto; // Let content determine height
+        width: max-content; // Wrap to content width
+        box-sizing: content-box; // Don't include padding in width
     }
 
     .gallery {
@@ -169,23 +187,22 @@ a:hover {
         .gallery-image {
             padding-top: 18px;
             padding-left: 0;
+            padding-bottom: 18px; // Match top padding for centering
             height: 264px;
         }
 
         .gallery-caption {
-            top: calc(50% + 0.5 * 18px - 0.5 * 6px);
+            top: 50%;
             left: calc(50% - 0.5 * 4px);
         }
 
         &:not(:last-child) .gallery-image {
             padding-right: 4px;
-            padding-bottom: 6px;
         }
 
         &:last-child {
             .gallery-image {
                 padding-right: 0;
-                padding-bottom: 6px;
             }
 
             .gallery-caption {
@@ -505,6 +522,7 @@ hr {
             
             .title {
                 flex-shrink: 0; // Don't shrink the title
+                margin-bottom: 0.5rem !important; // Consistent spacing, no extra padding
             }
             
             .bio-scrollable {
@@ -513,6 +531,7 @@ hr {
                 flex-direction: column !important;
                 min-height: 0 !important; // Important for flexbox scrolling
                 overflow: hidden !important;
+                margin-top: 0 !important; // Remove any extra top margin
                 
                 .bio-content {
                     flex: 1 !important;
@@ -522,6 +541,21 @@ hr {
                 }
             }
         }
+    }
+    
+    // News tile - prevent it from growing when compressed
+    .tile.is-child.news-tile {
+        max-height: 240px !important;
+        
+        .scrollable-content {
+            height: 144px !important;
+            max-height: 144px !important;
+        }
+    }
+    
+    // Latest publication tile - ensure consistent height
+    .tile.is-child.latest-pub-tile {
+        max-height: 240px !important;
     }
 
     // Education section - prevent overflow
@@ -601,6 +635,24 @@ hr {
     .skill-ul li {
         word-wrap: break-word;
         overflow-wrap: break-word;
+    }
+}
+
+// Fix for intermediate compression state (between tablet and mobile)
+@media screen and (min-width: 769px) and (max-width: 1023px) {
+    // Ensure news and latest pub tiles maintain fixed heights during compression
+    .tile.is-child.news-tile,
+    .tile.is-child.latest-pub-tile {
+        max-height: 240px !important;
+        min-height: 240px !important;
+        
+        .scrollable-container {
+            overflow: hidden;
+        }
+        
+        .scrollable-content {
+            max-height: 144px !important;
+        }
     }
 }
 
