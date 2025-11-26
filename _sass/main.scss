@@ -430,6 +430,109 @@ hr {
     }
 }
 
+// Tablet-specific fixes for iPad layout issues
+@media screen and (min-width: 421px) and (max-width: 1024px) {
+    // Remove fixed heights that cause overflow on tablets
+    .education-tile,
+    .coding-tile,
+    .experience-tile,
+    .awards-tile,
+    .publications-tile {
+        height: auto !important;
+        min-height: fit-content !important;
+    }
+
+    // Ensure padded-block has proper overflow handling
+    .padded-block {
+        overflow: hidden;
+    }
+
+    // Make scrollable containers adaptive
+    .scrollable-content {
+        height: auto !important;
+        max-height: 250px;
+    }
+
+    .awards-content {
+        max-height: 300px !important;
+    }
+
+    // Education section - prevent overflow
+    .education-tile .fa-ul {
+        font-size: 0.9em;
+        line-height: 1.5;
+        
+        li {
+            margin-bottom: 0.4em;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+    }
+
+    // Coding section - repositories panel
+    .repositories-panel {
+        max-height: none;
+        overflow: visible;
+        
+        .panel-block {
+            font-size: 0.85em;
+            padding: 0.5em 0.65em;
+            line-height: 1.3;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+    }
+
+    // Coding section - adjust skills list
+    .coding-tile .skill-ul {
+        font-size: 0.9em;
+        
+        li {
+            margin-bottom: 0.4em;
+            line-height: 1.4;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+    }
+
+    // Awards section - make it scrollable with reasonable height
+    .awards-tile {
+        .scrollable-container {
+            overflow: hidden;
+        }
+        
+        .chevron-ul li {
+            font-size: 0.9em;
+            margin-bottom: 0.4em;
+            line-height: 1.4;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+    }
+
+    // Adjust list spacing for tablets
+    .chevron-ul li,
+    .skill-ul li {
+        margin-bottom: 0.3em;
+        line-height: 1.4;
+    }
+
+    // Ensure tiles don't have conflicting height constraints
+    .tile.is-vertical .tile {
+        min-height: auto !important;
+    }
+
+    // Reduce padding in tiles for tablets
+    .tile.is-child {
+        padding: 0.75em;
+    }
+
+    // Reduce title/button sizes slightly
+    .tile-header {
+        font-size: 0.95em;
+    }
+}
+
 .navbar-container {
     margin: 0.4em;
     position: relative;
