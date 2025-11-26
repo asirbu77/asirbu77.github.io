@@ -3,30 +3,22 @@ languages:
     - <i class="fa-brands fa-python"></i> Python
     - <i class="fa-solid fa-cubes"></i> MATLAB
     - <i class="fa-brands fa-java"></i> Java
-  human:
-    - English
-    - French
-    - Romanian
 
 tools:
   - <i class="fa-solid fa-fire-flame-curved"></i> PyTorch
   - <i class="fa-solid fa-hexagon-nodes"></i> Jax
+  - <i class="fa-solid fa-gears"></i> MuJoCo
   - <i class="fa-brands fa-git-alt"></i> Git
   - <i class="fa-solid fa-file"></i> LaTeX
   - <i class="fa-solid fa-splotch"></i> Inkscape
 
-# repositories:
-#   - name: Airshare
-#     url: "https://github.com/KuroLabs/Airshare"
-#     button: "https://ghbtns.com/github-btn.html?user=KuroLabs&repo=Airshare&type=star&count=true"
-#   - name: RNNReactivation
-#     url: "https://github.com/nandahkrishna/RNNReactivation"
-#     button: "https://ghbtns.com/github-btn.html?user=nandahkrishna&repo=RNNReactivation&type=star&count=true"
-#   - name: StressAffectDetection
-#     url: "https://github.com/nandahkrishna/StressAffectDetection"
-#     button: "https://ghbtns.com/github-btn.html?user=nandahkrishna&repo=StressAffectDetection&type=star&count=true"
-#   - name: TARS
-#     url: "https://github.com/solarillion/TARS"
-#     button: "https://ghbtns.com/github-btn.html?user=solarillion&repo=TARS&type=star&count=true"
-#   - name: Homebrew
-#     url: "https://github.com/search?q=org%3AHomebrew+involves%3Anandahkrishna&type=pullrequests"
+repositories:
+  - name: vnl-playground
+    url: "https://github.com/talmolab/vnl-playground"
+    button: "https://ghbtns.com/github-btn.html?user=talmolab&repo=vnl-playground&type=star&count=true"
+  - name: track-mjx
+    url: "https://github.com/talmolab/track-mjx"
+    button: "https://ghbtns.com/github-btn.html?user=talmolab&repo=track-mjx&type=star&count=true"
+  - name: stac-mjx
+    url: "https://github.com/talmolab/stac-mjx"
+    button: "https://ghbtns.com/github-btn.html?user=talmolab&repo=stac-mjx&type=star&count=true"
