@@ -430,21 +430,30 @@ hr {
     }
 }
 
-// Tablet-specific fixes for iPad layout issues
-@media screen and (min-width: 421px) and (max-width: 1024px) {
-    // Remove fixed heights that cause overflow on tablets
-    .education-tile,
-    .coding-tile,
-    .experience-tile,
-    .awards-tile,
-    .publications-tile {
+// Tablet-specific fixes for iPad layout issues - targeting iPad specifically
+@media screen and (min-width: 768px) and (max-width: 1280px) {
+    // Remove fixed heights that cause overflow on tablets - use div.tile to be more specific
+    div.tile.education-tile,
+    div.tile.coding-tile,
+    div.tile.experience-tile,
+    div.tile.awards-tile,
+    div.tile.publications-tile {
         height: auto !important;
         min-height: fit-content !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    // Force all nested tiles to also be auto height
+    .tile.is-vertical .tile {
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
     }
 
     // Ensure padded-block has proper overflow handling
     .padded-block {
-        overflow: hidden;
+        height: auto !important;
     }
 
     // Make scrollable containers adaptive
@@ -458,78 +467,126 @@ hr {
     }
 
     // Education section - prevent overflow
-    .education-tile .fa-ul {
-        font-size: 0.9em;
-        line-height: 1.5;
+    .education-tile {
+        .fa-ul {
+            font-size: 0.8em !important;
+            line-height: 1.6 !important;
+            margin-left: 1.2em !important;
+            
+            li {
+                margin-bottom: 0.5em !important;
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+                hyphens: auto;
+            }
+        }
         
-        li {
-            margin-bottom: 0.4em;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
+        .tile.is-child {
+            overflow: visible !important;
+            height: auto !important;
+        }
+        
+        .padded-block {
+            overflow: visible !important;
         }
     }
 
     // Coding section - repositories panel
-    .repositories-panel {
-        max-height: none;
-        overflow: visible;
-        
-        .panel-block {
-            font-size: 0.85em;
-            padding: 0.5em 0.65em;
-            line-height: 1.3;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
+    .coding-tile {
+        .repositories-panel {
+            max-height: none !important;
+            overflow: visible !important;
+            
+            .panel-block {
+                font-size: 0.75em !important;
+                padding: 0.35em 0.5em !important;
+                line-height: 1.4 !important;
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+                hyphens: auto;
+            }
+            
+            .panel-heading {
+                font-size: 0.85em !important;
+                padding: 0.5em 0.65em !important;
+            }
+            
+            .panel-icon {
+                font-size: 0.9em;
+            }
         }
-    }
-
-    // Coding section - adjust skills list
-    .coding-tile .skill-ul {
-        font-size: 0.9em;
         
-        li {
-            margin-bottom: 0.4em;
-            line-height: 1.4;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
+        // Coding section - adjust skills list
+        .skill-ul {
+            font-size: 0.8em !important;
+            margin-left: 1.2em !important;
+            
+            li {
+                margin-bottom: 0.5em !important;
+                line-height: 1.5 !important;
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+                hyphens: auto;
+            }
+        }
+        
+        .tile.is-child {
+            overflow: visible !important;
+            height: auto !important;
+        }
+        
+        .padded-block {
+            overflow: visible !important;
         }
     }
 
     // Awards section - make it scrollable with reasonable height
     .awards-tile {
         .scrollable-container {
-            overflow: hidden;
+            overflow: hidden !important;
         }
         
-        .chevron-ul li {
-            font-size: 0.9em;
-            margin-bottom: 0.4em;
-            line-height: 1.4;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
+        .chevron-ul {
+            margin-left: 0.8em !important;
+            
+            li {
+                font-size: 0.8em !important;
+                margin-bottom: 0.5em !important;
+                line-height: 1.5 !important;
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+                hyphens: auto;
+            }
+        }
+        
+        .tile.is-child {
+            overflow: hidden !important;
+            height: auto !important;
         }
     }
 
     // Adjust list spacing for tablets
     .chevron-ul li,
     .skill-ul li {
-        margin-bottom: 0.3em;
-        line-height: 1.4;
-    }
-
-    // Ensure tiles don't have conflicting height constraints
-    .tile.is-vertical .tile {
-        min-height: auto !important;
+        margin-bottom: 0.4em;
+        line-height: 1.5;
     }
 
     // Reduce padding in tiles for tablets
     .tile.is-child {
-        padding: 0.75em;
+        padding: 0.65em !important;
     }
 
     // Reduce title/button sizes slightly
     .tile-header {
-        font-size: 0.95em;
+        font-size: 0.85em !important;
+        padding: 0.45em 0.7em !important;
+    }
+    
+    // Ensure the title buttons don't add extra height
+    .title {
+        margin-bottom: 0.3rem !important;
+        font-size: 1.3rem !important;
     }
 }
 
