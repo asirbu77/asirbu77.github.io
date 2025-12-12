@@ -8,10 +8,7 @@
     - "arni2025_slide.jpeg"
 
 - date: 2025-09-01
-  news: "I have transferred to the <a href='https://www.mcgill.ca/gradapplicants/program/computer-science-msc' target='_blank' rel='noopener noreferrer'>MSc program in Computer Science</a> at McGill University."
-
-- date: 2024-03-05
-  news: "I have been accepted into the Integrated Program in Neuroscience (IPN) at McGill University for Fall 2024."
+  news: "I have been accepted into the <a href='https://www.mcgill.ca/gradapplicants/program/computer-science-msc' target='_blank' rel='noopener noreferrer'>MSc program in Computer Science</a> at McGill University."
 
 - date: 2023-08-08
   news: "Our paper on <a href='https://www.nature.com/articles/s41467-023-40539-9' target='_blank' rel='noopener noreferrer'>automated parahydrogen-induced hyperpolarization for MRI</a> has been published in <a href='https://www.nature.com/ncomms/' target='_blank' rel='noopener noreferrer'>Nature Communications</a> 🎉"
