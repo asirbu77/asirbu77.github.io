@@ -12,9 +12,9 @@ author:
   avatar: "profile.png"
   og_image: "icon.jpg"
   bio-short: >-
-    My research interests lie at the intersection of deep learning and computational neuroscience. My focus is on building embodied agents for investigating theories of motor control and sensorimotor learning.
+    My research interests lie at the intersection of deep learning, robotics, and computational neuroscience. My focus is on building embodied agents for investigating theories of motor control and sensorimotor learning.
   bio: >-
-    <p>I am a MSc student supervised by <a href='https://mila.quebec/en/directory/blake-richards' target='_blank' rel='noopener noreferrer'> Dr. Blake A. Richards</a> at Mila – Quebec AI Institute and McGill University. My research interests lie at the intersection of deep learning and computational neuroscience. I am particularly interested in building embodied agents to investigate theories of motor control and sensorimotor learning.</p>
+    <p>I am a MSc student supervised by <a href='https://mila.quebec/en/directory/blake-richards' target='_blank' rel='noopener noreferrer'> Dr. Blake A. Richards</a> at Mila – Quebec AI Institute and McGill University. My research interests lie at the intersection of deep learning, robotics, and computational neuroscience. I am particularly interested in building embodied agents to investigate theories of motor control and sensorimotor learning.</p>
 
     <p>My current projects focus on developing a framework for simulating and training embodied neuro-agents in virtual physics environments, as well as exploring the use of generative models for understanding and predicting motor behaviors.</p>
     
