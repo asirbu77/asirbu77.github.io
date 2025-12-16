@@ -2,6 +2,7 @@
   news: "I had a great time volunteering as part of the Mila delegation at <a href='https://neurips.cc/' target='_blank' rel='noopener noreferrer'>NeurIPS 2025</a> in San Diego! 🤖✨"
   images:
     - "mila_booth_neurips2025.jpg"
+    - "mila_booth2_neurips2025.jpg"
 
 - date: 2025-11-25
   news: "Our preprint on <a href='https://arxiv.org/abs/2511.20532' target='_blank' rel='noopener noreferrer'>MIMIC-MJX: Neuromechanical Emulation of Animal Behavior</a> has been released on arXiv 🎉"
