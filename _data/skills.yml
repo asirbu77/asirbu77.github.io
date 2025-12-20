@@ -13,12 +13,12 @@ tools:
   - <i class="fa-solid fa-splotch"></i> Inkscape
 
 repositories:
-  - name: vnl-playground
-    url: "https://github.com/talmolab/vnl-playground"
-    button: "https://ghbtns.com/github-btn.html?user=talmolab&repo=vnl-playground&type=star&count=true"
   - name: track-mjx
     url: "https://github.com/talmolab/track-mjx"
     button: "https://ghbtns.com/github-btn.html?user=talmolab&repo=track-mjx&type=star&count=true"
+  - name: vnl-playground
+    url: "https://github.com/talmolab/vnl-playground"
+    button: "https://ghbtns.com/github-btn.html?user=talmolab&repo=vnl-playground&type=star&count=true"
   - name: stac-mjx
     url: "https://github.com/talmolab/stac-mjx"
     button: "https://ghbtns.com/github-btn.html?user=talmolab&repo=stac-mjx&type=star&count=true"
