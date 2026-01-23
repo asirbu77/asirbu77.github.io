@@ -1,0 +1,5 @@
+- title: "Embodied Agents for NeuroAI"
+  date: 2026-01-23
+  abstract: "The nervous system evolved to control complex bodies in dynamic environments. However, many studies of motor control isolate compoenents rather than model the full brain-body-environment loop. Understanding natural behaviour requires integrated models linking neural control, biomechanics, and real-world dynamics. Advances in 3D motion capture, artificial neural networks, and physics simulation offer a method to bridge this gap. In this talk I present my work on training embodied rodent agents in MuJoCo to emulate naturalistic behaviour and furthermore, apply those learned representations towards downstream task solving."
+  video: "https://www.youtube.com/embed/1_S_oSWaX_g  "
+  venue: "NeuralAI Reading Group - Mila"
