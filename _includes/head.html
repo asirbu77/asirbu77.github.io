@@ -1,21 +1,14 @@
 <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0d11">
 
   {% include seo.html %}
 
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
 
-  {% if page.title == "About" %}
-  <title>{{ site.title }}</title>
-  {% else %}
-  <title>{{ site.title }} {{ site.title_separator }} {{ page.title }}</title>
-  {% endif %}
-
-  <link rel="stylesheet" href="{{ '/assets/vendor/bulma/css/bulma.min.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/vendor/fontawesome/css/fontawesome.min.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/vendor/fontawesome/css/brands.min.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/vendor/fontawesome/css/solid.min.css' | relative_url }}">
@@ -26,156 +19,9 @@
   {% endif %}
 
   <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/img/favicon/apple-touch-icon.png' | relative_url }}">
-  <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/img/favicon/favicon-32x32.png' | relative_url }}">
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/img/favicon/favicon-16x16.png' | relative_url }}">
+  <link rel="icon" type="image/png" sizes="96x96" href="{{ '/assets/img/favicon/favicon-96x96.png' | relative_url }}">
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/img/favicon/favicon.svg' | relative_url }}">
   <link rel="manifest" href="{{ '/assets/img/favicon/site.webmanifest' | relative_url }}">
   <link rel="shortcut icon" href="{{ '/favicon.ico' | relative_url }}">
-
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
-
-  <!-- Email copy notification styles -->
-  <style>
-    .email-notification {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: #48c774;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 5px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      z-index: 9999;
-      opacity: 0;
-      transform: translateY(-20px);
-      transition: all 0.3s ease;
-      font-size: 14px;
-      font-weight: 500;
-    }
-    .email-notification.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
-
-  <!-- Email copy functionality -->
-  <script>
-    function copyEmailToClipboard(event) {
-      event.preventDefault();
-      const email = event.currentTarget.getAttribute('data-email');
-      
-      // Use the modern Clipboard API if available
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(email).then(function() {
-          showEmailNotification(email);
-        }).catch(function(err) {
-          console.error('Failed to copy email: ', err);
-          fallbackCopyTextToClipboard(email);
-        });
-      } else {
-        // Fallback for older browsers
-        fallbackCopyTextToClipboard(email);
-      }
-    }
-
-    function fallbackCopyTextToClipboard(text) {
-      const textArea = document.createElement("textarea");
-      textArea.value = text;
-      textArea.style.position = "fixed";
-      textArea.style.left = "-999999px";
-      textArea.style.top = "-999999px";
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-      
-      try {
-        document.execCommand('copy');
-        showEmailNotification(text);
-      } catch (err) {
-        console.error('Fallback: Failed to copy email: ', err);
-      }
-      
-      document.body.removeChild(textArea);
-    }
-
-    function showEmailNotification(email) {
-      // Remove any existing notification
-      const existingNotification = document.querySelector('.email-notification');
-      if (existingNotification) {
-        existingNotification.remove();
-      }
-
-      // Create new notification
-      const notification = document.createElement('div');
-      notification.className = 'email-notification';
-      notification.innerHTML = `<i class="fa-solid fa-check"></i> Email copied to clipboard<br><small>${email}</small>`;
-      
-      document.body.appendChild(notification);
-      
-      // Trigger the animation
-      setTimeout(() => {
-        notification.classList.add('show');
-      }, 10);
-      
-      // Hide and remove the notification after 3 seconds
-      setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => {
-          if (notification.parentNode) {
-            notification.parentNode.removeChild(notification);
-          }
-        }, 300);
-      }, 3000);
-    }
-  </script>
-
-  <!-- Mobile Safari tile fixes -->
-  <style>
-    /* Fix for mobile Safari tile overlapping issues */
-    @media screen and (max-width: 768px) {
-      .tile {
-        display: block !important;
-        width: 100% !important;
-        height: auto !important;
-        margin-bottom: 1.5rem !important;
-      }
-      
-      .tile.is-vertical {
-        display: block !important;
-        flex-direction: column !important;
-      }
-      
-      .tile.is-child {
-        display: block !important;
-        flex: none !important;
-        width: 100% !important;
-        height: auto !important;
-      }
-      
-      /* Ensure proper spacing on mobile */
-      .padded-block {
-        min-height: auto !important;
-        height: auto !important;
-      }
-      
-      /* Fix for webkit flexbox issues on mobile Safari */
-      .tile.is-vertical .tile {
-        -webkit-flex: none !important;
-        flex: none !important;
-        width: 100% !important;
-      }
-    }
-    
-    /* Additional Safari-specific fixes */
-    @supports (-webkit-touch-callout: none) {
-      .tile {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-      }
-      
-      .tile.is-vertical {
-        -webkit-flex-direction: column;
-        flex-direction: column;
-      }
-    }
-  </style>
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ '/feed.xml' | relative_url }}">
 </head>

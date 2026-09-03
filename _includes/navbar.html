@@ -1,18 +1,12 @@
-{% assign about = "/" | absolute_url %}
-<div class="section is-max-desktop" style="padding-bottom: 0em; width: 100%;">
-  <div class="navbar-container">
-    <div class="navbar-start">
-      {% assign pages_list = site.data.navbar %}
-      {% for node in pages_list %}
-        <a class="nav navbar-item{% if page.title == node.title %} navbar-highlight{% endif %}" href="{{ node.url }}">{{ node.title }}</a>
-      {% endfor %}
-    </div>
-    <div class="navbar-end">
-      <a class="nav navbar-item" href="#" onclick="copyEmailToClipboard(event)" data-email="{{ site.author.email }}"><i class="fa-solid fa-envelope"></i></a>
-      {% assign social_list = site.author.social %}
-      {% for node in social_list %}
-      <a class="nav navbar-item" href="{{ node[1] }}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-{{ node[0] }}"></i></a>
-      {% endfor %}
-    </div>
-  </div>
-</div>
+<nav class="nav">
+  <a class="nav__brand" href="{{ '/' | relative_url }}">{{ site.author.name | upcase }}</a>
+  {% for node in site.data.navbar %}
+  <a class="nav__link{% if page.title == node.title %} is-current{% endif %}" href="{{ node.url | relative_url }}">{{ node.title }}</a>
+  {% endfor %}
+  <span class="nav__social">
+    <a href="mailto:{{ site.author.email }}" data-copy-email="{{ site.author.email }}" aria-label="Copy {{ site.author.name }}'s email address"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>
+    {% for node in site.author.social %}
+    <a href="{{ node[1] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ node[0] }}"><i class="fa-brands fa-{{ node[0] }}" aria-hidden="true"></i></a>
+    {% endfor %}
+  </span>
+</nav>

@@ -8,13 +8,13 @@ timezone: "America/Montreal"
 # Site Author
 author:
   name: "Aidan Sirbu"
-  tagline: "MSc Student @ Mila + McGill University | Paradigms of Intelligence Team @ Google"
+  tagline: "PhD Student @ Mila + McGill University | Paradigms of Intelligence Team @ Google"
   avatar: "profile.png"
   og_image: "icon.jpg"
   bio-short: >-
     My research interests lie at the intersection of deep learning, robotics, and computational neuroscience. My focus is on building embodied agents for investigating theories of motor control and sensorimotor learning.
   bio: >-
-    <p>I am a MSc student supervised by <a href='https://mila.quebec/en/directory/blake-richards' target='_blank' rel='noopener noreferrer'> Dr. Blake A. Richards</a> at Mila – Quebec AI Institute and McGill University. My research interests lie at the intersection of deep learning, robotics, and computational neuroscience. I am particularly interested in building embodied agents to investigate theories of motor control and sensorimotor learning.</p>
+    <p>I am a PhD student supervised by <a href='https://mila.quebec/en/directory/blake-richards' target='_blank' rel='noopener noreferrer'> Dr. Blake A. Richards</a> at Mila – Quebec AI Institute and McGill University. My research interests lie at the intersection of deep learning, robotics, and computational neuroscience. I am particularly interested in building embodied agents to investigate theories of motor control and sensorimotor learning.</p>
 
     <p>My current projects focus on developing a framework for simulating and training embodied neuro-agents in virtual physics environments, as well as exploring the use of generative models for understanding and predicting motor behaviors.</p>
     
@@ -24,6 +24,8 @@ author:
 
     <p>Don't hesitate to reach out if you are interested in collaborating, discussing research, or even just chatting!</p>
   location: "Montréal, Canada"
+  affiliation_line: "Mila · McGill · Google Paradigms of Intelligence"
+  cv_updated: "April 2026"
   email: "aidan.sirbu@mila.quebec"
   social:
     github: "https://github.com/asirbu77"

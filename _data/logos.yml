@@ -1,0 +1,13 @@
+- file: mila-trim.png
+  alt: Mila – Quebec AI Institute
+  url: https://mila.quebec
+
+- file: mcgill-trim.png
+  alt: McGill University
+  url: https://www.mcgill.ca/
+  scale: 1.1
+
+- file: google-trim.png
+  alt: Google
+  url: https://research.google
+  scale: 1.28

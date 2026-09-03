@@ -1,0 +1,14 @@
+# Entries in the Research section on the homepage.
+# animation: fauna (rodent, fly and worm) or sudoku. Leave blank for no canvas.
+# mode (fauna only): scene | lanes | cycle
+
+- title: "MIMIC-MJX: Neuromechanical Emulation of Animal Behavior"
+  status: arXiv 2025
+  url: https://arxiv.org/abs/2511.20532
+  animation: fauna
+  mode: scene
+
+- title: Diffusion as a Training Curriculum for Timestep-Free Iterative Reasoning
+  status: arXiv 2026
+  url: https://arxiv.org/abs/2609.01449
+  animation: sudoku

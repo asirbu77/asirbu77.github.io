@@ -1,3 +1,23 @@
+- title: Diffusion as a Training Curriculum for Timestep-Free Iterative Reasoning
+  authors:
+    - Mariia Drozdova
+    - Aidan Sirbu
+    - Pietro Miotti
+    - Robert Obryk
+    - Mayalen Etcheverry
+    - Eyvind Niklasson
+    - Blake Richards
+  venue: arXiv Preprint, 2026
+  venue-short: arXiv 2026
+  tags: []
+  type: preprint
+  doi: 10.48550/arXiv.2609.01449
+  date: 2026-09-01
+  links:
+    - url: https://arxiv.org/abs/2609.01449
+      name: Paper
+      icon: fa-solid fa-file
+
 - title: 'MIMIC-MJX: Neuromechanical Emulation of Animal Behavior'
   authors:
     - Charles Y. Zhang

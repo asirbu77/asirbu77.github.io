@@ -1,0 +1,93 @@
+/* Small interactions: copy-to-clipboard email and the news image lightbox. */
+(function () {
+  "use strict";
+
+  /* --- copy email ------------------------------------------------------- */
+
+  function toast(message) {
+    var existing = document.querySelector(".toast");
+    if (existing) existing.remove();
+
+    var el = document.createElement("div");
+    el.className = "toast";
+    el.setAttribute("role", "status");
+    el.textContent = message;
+    document.body.appendChild(el);
+
+    requestAnimationFrame(function () { el.classList.add("is-visible"); });
+    setTimeout(function () {
+      el.classList.remove("is-visible");
+      setTimeout(function () { el.remove(); }, 300);
+    }, 2600);
+  }
+
+  function copyEmail(button) {
+    var email = button.getAttribute("data-copy-email");
+    if (!email) return;
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(email).then(function () {
+        toast("Email copied — " + email);
+      }, function () {
+        window.location.href = "mailto:" + email;
+      });
+      return;
+    }
+
+    var field = document.createElement("textarea");
+    field.value = email;
+    field.setAttribute("readonly", "");
+    field.style.position = "fixed";
+    field.style.left = "-9999px";
+    document.body.appendChild(field);
+    field.select();
+    try {
+      document.execCommand("copy");
+      toast("Email copied — " + email);
+    } catch (err) {
+      window.location.href = "mailto:" + email;
+    }
+    field.remove();
+  }
+
+  document.addEventListener("click", function (event) {
+    var button = event.target.closest("[data-copy-email]");
+    if (button) {
+      event.preventDefault();
+      copyEmail(button);
+    }
+  });
+
+  /* --- lightbox --------------------------------------------------------- */
+
+  var lightbox = document.getElementById("lightbox");
+  if (!lightbox) return;
+  var image = lightbox.querySelector("img");
+
+  function open(src, alt) {
+    image.src = src;
+    image.alt = alt || "";
+    lightbox.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+    lightbox.querySelector(".lightbox__close").focus();
+  }
+
+  function close() {
+    lightbox.classList.remove("is-open");
+    document.body.style.overflow = "";
+    image.removeAttribute("src");
+  }
+
+  document.addEventListener("click", function (event) {
+    var thumb = event.target.closest("[data-lightbox]");
+    if (thumb) {
+      open(thumb.getAttribute("src"), thumb.getAttribute("alt"));
+      return;
+    }
+    if (event.target.closest(".lightbox")) close();
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && lightbox.classList.contains("is-open")) close();
+  });
+})();
