@@ -548,33 +548,6 @@ h1, h2, h3 { text-wrap: balance; }
     overscroll-behavior: contain;
 }
 
-/* A column whose scroller fills whatever height its neighbour sets. The .fill
-   box has a zero flex basis so it never drives the grid row taller; the
-   scroller is absolutely positioned inside it, so it matches the row exactly. */
-.col-fill {
-    display: flex;
-    flex-direction: column;
-
-    .fill {
-        position: relative;
-        flex: 1 1 0;
-        min-height: 170px;
-    }
-
-    .scroller {
-        position: absolute;
-        inset: 0;
-        max-height: none;
-    }
-}
-
-@media (max-width: 820px) {
-    .col-fill .fill {
-        flex: none;
-        height: 300px;
-    }
-}
-
 .entry {
     display: flex;
     gap: 12px;

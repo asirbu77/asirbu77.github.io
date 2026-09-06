@@ -6,7 +6,8 @@
   <span class="nav__social">
     <a href="mailto:{{ site.author.email }}" data-copy-email="{{ site.author.email }}" aria-label="Copy {{ site.author.name }}'s email address"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>
     {% for node in site.author.social %}
-    <a href="{{ node[1] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ node[0] }}"><i class="fa-brands fa-{{ node[0] }}" aria-hidden="true"></i></a>
+    {% assign social_key = node[0] %}
+    <a href="{{ node[1] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ site.data.social_labels[social_key] | default: social_key }}"><i class="fa-brands fa-{{ social_key }}" aria-hidden="true"></i></a>
     {% endfor %}
   </span>
 </nav>

@@ -12,11 +12,11 @@ author:
   avatar: "profile.png"
   og_image: "icon.jpg"
   bio-short: >-
-    My research interests lie at the intersection of deep learning, robotics, and computational neuroscience. My focus is on building embodied agents for investigating theories of motor control and sensorimotor learning.
+    My research interests lie at the intersection of deep learning, robotics, and computational neuroscience. My main focus is building embodied agents to investigate theories of motor control and sensorimotor learning. I also work on iterative and self-organizing computation, where repeatedly applying one simple update lets a model keep improving the longer it runs.
   bio: >-
-    <p>I am a PhD student supervised by <a href='https://mila.quebec/en/directory/blake-richards' target='_blank' rel='noopener noreferrer'> Dr. Blake A. Richards</a> at Mila – Quebec AI Institute and McGill University. My research interests lie at the intersection of deep learning, robotics, and computational neuroscience. I am particularly interested in building embodied agents to investigate theories of motor control and sensorimotor learning.</p>
+    <p>I am a PhD student at Mila – Quebec AI Institute and McGill University, supervised by <a href='https://mila.quebec/en/directory/blake-richards' target='_blank' rel='noopener noreferrer'>Dr. Blake A. Richards</a>, and a student researcher on the Paradigms of Intelligence team at Google.</p>
 
-    <p>My current projects focus on developing a framework for simulating and training embodied neuro-agents in virtual physics environments, as well as exploring the use of generative models for understanding and predicting motor behaviors.</p>
+    <p>Both halves of my work come down to the same question: what does a system actually have to compute in order to act well? On the embodied side, I build simulated animals faithful enough that theories of motor control can be validated against measured behaviour. On the other, I study models that solve problems by repetition, where one shared update run to arbitrary depth does the work usually handed to search or to scale.</p>
     
     <p>Before I joined Mila, I completed my BSc in Medical Physics at Western University where I worked on projects related to hyperpolarized MRI.</p>
 
@@ -32,7 +32,7 @@ author:
     google-scholar: "https://scholar.google.com/citations?user=VQ1HT0oAAAAJ&hl=en"
     orcid: "https://orcid.org/0000-0002-0154-3563"
     linkedin: "https://www.linkedin.com/in/aidansirbu/"
-    # x-twitter: 
+    x-twitter: "https://x.com/aidan_sirbu"
     bluesky: "https://bsky.app/profile/sirbu.bsky.social"
 
 # Analytics

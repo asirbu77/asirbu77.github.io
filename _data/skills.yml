@@ -13,6 +13,9 @@ tools:
   - <i class="fa-solid fa-splotch"></i> Inkscape
 
 repositories:
+  - name: SCAMPER
+    url: "https://github.com/asirbu77/SCAMPER"
+    button: "https://ghbtns.com/github-btn.html?user=asirbu77&repo=SCAMPER&type=star&count=true"
   - name: track-mjx
     url: "https://github.com/talmolab/track-mjx"
     button: "https://ghbtns.com/github-btn.html?user=talmolab&repo=track-mjx&type=star&count=true"

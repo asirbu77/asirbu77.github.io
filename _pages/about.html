@@ -63,6 +63,28 @@ permalink: /
 
 <section class="section">
   <div class="section__wrap">
+    <div><p class="label">About</p></div>
+    <div>{{ site.author.bio }}</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section__wrap">
+    <div><p class="label">Awards</p></div>
+    <div>
+      <div class="scroller">
+        <ul class="feed">
+          {% for item in site.data.awards %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section__wrap">
     <div><p class="label">News</p></div>
     <div>
       <ul class="feed">
@@ -75,13 +97,6 @@ permalink: /
       </ul>
       <a href="{{ '/news/' | relative_url }}">All news &rarr;</a>
     </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section__wrap">
-    <div><p class="label">About</p></div>
-    <div>{{ site.author.bio }}</div>
   </div>
 </section>
 
@@ -103,34 +118,17 @@ permalink: /
 
 <section class="section">
   <div class="section__wrap">
-    <div><p class="label">Awards</p></div>
+    <div><p class="label">Publications</p></div>
     <div>
-      <div class="two-col">
-        <div class="col-fill">
-          <h2>Awards &amp; scholarships</h2>
-          <div class="fill">
-            <div class="scroller">
-              <ul class="feed">
-                {% for item in site.data.awards %}
-                <li>{{ item }}</li>
-                {% endfor %}
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div>
-          <h2>Publications</h2>
-          {% for item in site.data.publications %}
-          <p class="entry">
-            <span class="entry__year">{{ item.year | default: item.date | date: "%Y" }}</span>
-            <span>
-              <a href="{{ item.links[0].url }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a>
-              <br><span class="entry__meta">{{ item.venue }}</span>
-            </span>
-          </p>
-          {% endfor %}
-        </div>
-      </div>
+      {% for item in site.data.publications %}
+      <p class="entry">
+        <span class="entry__year">{{ item.year | default: item.date | date: "%Y" }}</span>
+        <span>
+          <a href="{{ item.links[0].url }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a>
+          <br><span class="entry__meta">{{ item.venue }}</span>
+        </span>
+      </p>
+      {% endfor %}
     </div>
   </div>
 </section>
