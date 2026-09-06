@@ -1,3 +1,7 @@
+// Accent. Change here and the whole page follows; assets/js/anim.js keeps a
+// matching pair of constants for the canvas animations.
+$hot: #a970ff;
+
 // ---------------------------------------------------------------------------
 // Kinematic — dark instrument-panel theme for asirbu77.github.io
 // Hand-written; replaces Bulma. Single committed dark palette.
@@ -9,7 +13,7 @@
     --line: #232e39;
     --fg: #dfe7ee;
     --dim: #8b9aa8;
-    --hot: #ff5c1f;
+    --hot: #{$hot};
     --bone: #f2ede4;
     --measure: 1080px;
     color-scheme: dark;
@@ -37,7 +41,7 @@ img { max-width: 100%; }
 a {
     color: var(--bone);
     text-decoration: none;
-    border-bottom: 1px solid rgba(255, 92, 31, 0.55);
+    border-bottom: 1px solid rgba($hot, 0.55);
 
     &:hover { color: var(--hot); }
 }
@@ -511,7 +515,7 @@ h1, h2, h3 { text-wrap: balance; }
             transition: box-shadow 0.3s;
         }
 
-        &:hover::before { box-shadow: 0 0 0 5px rgba(255, 92, 31, 0.18); }
+        &:hover::before { box-shadow: 0 0 0 5px rgba($hot, 0.18); }
         &:last-child { border-left-color: transparent; }
     }
 
@@ -541,11 +545,56 @@ h1, h2, h3 { text-wrap: balance; }
     }
 }
 
+/* A fixed-height list. macOS hides overlay scrollbars until you scroll, so
+   without help the box reads as a list that simply ends. Two hints: a track
+   that is always drawn, and a fade over the bottom edge that lifts once the
+   reader reaches the last item. */
 .scroller {
     max-height: 270px;
     overflow: auto;
-    padding-right: 8px;
+    padding-right: 10px;
     overscroll-behavior: contain;
+    /* Firefox only. In Chrome these standard properties take precedence over
+       the ::-webkit-scrollbar rules below and restore the auto-hiding overlay
+       bar, so they are scoped to engines that have no webkit pseudo-elements. */
+    @supports (-moz-appearance: none) {
+        scrollbar-width: thin;
+        scrollbar-color: #3c4a59 #171f28;
+    }
+
+    &::-webkit-scrollbar { width: 9px; }
+
+    &::-webkit-scrollbar-track {
+        background: #171f28;
+        border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #3c4a59;
+        border-radius: 5px;
+
+        &:hover { background: var(--hot); }
+    }
+}
+
+.scroll-box {
+    position: relative;
+
+    /* Stops short of the scrollbar so the track stays legible through it. */
+    &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 13px;
+        bottom: 0;
+        height: 54px;
+        background: linear-gradient(to top, var(--ink), rgba(10, 13, 17, 0));
+        opacity: 0;
+        transition: opacity 0.25s;
+        pointer-events: none;
+    }
+
+    &.is-scrollable:not(.is-end)::after { opacity: 1; }
 }
 
 .entry {
@@ -661,7 +710,7 @@ h1, h2, h3 { text-wrap: balance; }
     padding: 26px;
     border: 1px solid var(--hot);
     border-radius: 4px;
-    background: linear-gradient(180deg, rgba(255, 92, 31, 0.09), transparent);
+    background: linear-gradient(180deg, rgba($hot, 0.09), transparent);
 
     b { font-size: 1.05rem; color: var(--bone); }
 

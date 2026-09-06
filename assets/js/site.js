@@ -58,6 +58,26 @@
     }
   });
 
+  /* --- scroll affordance ------------------------------------------------ */
+
+  /* Marks a .scroll-box while its list still has content below the fold, so the
+     stylesheet can fade the bottom edge and drop the fade at the end. */
+  Array.prototype.forEach.call(document.querySelectorAll(".scroller"), function (el) {
+    var box = el.parentElement;
+    if (!box || !box.classList.contains("scroll-box")) return;
+
+    function update() {
+      var slack = el.scrollHeight - el.clientHeight;
+      box.classList.toggle("is-scrollable", slack > 2);
+      box.classList.toggle("is-end", el.scrollTop >= slack - 2);
+    }
+
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(update);
+  });
+
   /* --- lightbox --------------------------------------------------------- */
 
   var lightbox = document.getElementById("lightbox");

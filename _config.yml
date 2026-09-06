@@ -27,13 +27,15 @@ author:
   affiliation_line: "Mila · McGill · Google Paradigms of Intelligence"
   cv_updated: "April 2026"
   email: "aidan.sirbu@mila.quebec"
+  # Key order drives the icon order in the navbar and the pill order in the
+  # hero; the email entry is rendered ahead of this list in both.
   social:
     github: "https://github.com/asirbu77"
     google-scholar: "https://scholar.google.com/citations?user=VQ1HT0oAAAAJ&hl=en"
-    orcid: "https://orcid.org/0000-0002-0154-3563"
-    linkedin: "https://www.linkedin.com/in/aidansirbu/"
     x-twitter: "https://x.com/aidan_sirbu"
     bluesky: "https://bsky.app/profile/sirbu.bsky.social"
+    linkedin: "https://www.linkedin.com/in/aidansirbu/"
+    orcid: "https://orcid.org/0000-0002-0154-3563"
 
 # Analytics
 analytics:
