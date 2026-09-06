@@ -179,9 +179,7 @@ permalink: /
       {% for item in site.data.skills.repositories %}
       <a class="repo" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">
         <b><i class="fa-brands fa-github" aria-hidden="true"></i>&nbsp; {{ item.name }}</b>
-        {% if item.button %}
-        <iframe loading="lazy" src="{{ item.button }}" width="100" height="20" scrolling="0" title="GitHub stars for {{ item.name }}"></iframe>
-        {% endif %}
+        <span class="repo__stars" data-repo="{{ item.url | remove: 'https://github.com/' }}"></span>
       </a>
       {% endfor %}
     </div>

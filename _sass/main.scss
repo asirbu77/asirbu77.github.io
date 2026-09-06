@@ -651,7 +651,23 @@ h1, h2, h3 { text-wrap: balance; }
         color: var(--bone);
     }
 
-    iframe { border: 0; }
+    /* Star count, filled in by site.js. Stays collapsed when the API is
+       unreachable or rate limited, so a failed lookup shows nothing rather
+       than an empty box. */
+    &__stars {
+        display: none;
+        align-items: center;
+        gap: 6px;
+        flex: 0 0 auto;
+        font-family: "IBM Plex Mono", ui-monospace, monospace;
+        font-size: 0.78rem;
+        color: var(--dim);
+        letter-spacing: 0.02em;
+
+        &.is-loaded { display: inline-flex; }
+
+        i { color: var(--hot); font-size: 0.72rem; }
+    }
 }
 
 // --- gallery ---------------------------------------------------------------
