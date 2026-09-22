@@ -383,16 +383,41 @@ h1, h2, h3 { text-wrap: balance; }
 
 // --- research cards --------------------------------------------------------
 
+/* A sideways rail rather than a grid: the newest entry leads, and the card
+   clipped at the right edge is what says the list keeps going. Widths are a
+   fraction of the rail so roughly two and a bit stay in view at any size. */
 .work {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scroll-snap-type: x proximity;
+    overscroll-behavior-x: contain;
 
-    > * { min-width: 0; }
-}
+    > * {
+        flex: 0 0 clamp(268px, 44%, 380px);
+        min-width: 0;
+        scroll-snap-align: start;
+    }
 
-@media (max-width: 820px) {
-    .work { grid-template-columns: 1fr; }
+    @supports (-moz-appearance: none) {
+        scrollbar-width: thin;
+        scrollbar-color: #3c4a59 #171f28;
+    }
+
+    &::-webkit-scrollbar { height: 9px; }
+
+    &::-webkit-scrollbar-track {
+        background: #171f28;
+        border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #3c4a59;
+        border-radius: 5px;
+
+        &:hover { background: #4a5b6d; }
+    }
 }
 
 .card {
@@ -469,6 +494,55 @@ h1, h2, h3 { text-wrap: balance; }
 
 @media (max-width: 820px) {
     .card canvas { height: 200px; }
+}
+
+/* On /research/ each entry runs as a row: a square figure held to the left and
+   the abstract beside it. The canvas is inset and framed here rather than
+   bleeding to the card edge, so the column below it reads as the card's own
+   ground once the abstract outruns it. Both axes are fixed, which keeps the
+   canvas out of the measure-and-resize loop that height: auto would create. */
+.card--row {
+    display: grid;
+    grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+    gap: 24px;
+    padding: 22px;
+    align-items: start;
+
+    canvas {
+        height: 300px;
+        border: 1px solid var(--line);
+        border-radius: 3px;
+    }
+
+    .card__body { padding: 0; }
+
+    h3 { font-size: 1.12rem; }
+
+    .card__abstract {
+        margin-top: 12px;
+        font-size: 0.86rem;
+        line-height: 1.62;
+        color: var(--dim);
+    }
+}
+
+@media (max-width: 720px) {
+    .card--row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 16px;
+
+        canvas { height: 220px; }
+    }
+}
+
+/* The /research/ listing itself: held short of the measure so the abstracts
+   keep a readable line length. */
+.stack {
+    display: grid;
+    gap: 18px;
+    max-width: 880px;
+    margin-bottom: 40px;
 }
 
 
@@ -781,6 +855,14 @@ h1, h2, h3 { text-wrap: balance; }
         margin: 6px 0 24px;
         font-size: 2rem;
         color: var(--bone);
+    }
+
+    /* A page whose eyebrow is its only heading: it keeps the label's type and
+       takes over the h1's bottom margin, so what follows still clears it. */
+    h1.label {
+        margin: 0 0 24px;
+        font-size: 1.05rem;
+        color: var(--hot);
     }
 }
 

@@ -1,14 +1,98 @@
-# Entries in the Research section on the homepage.
-# animation: fauna (rodent, fly and worm) or sudoku. Leave blank for no canvas.
+# Entries in the Research section on the homepage and on /research/.
+# Both lists sort on date, newest first; the date is an ordering key only and is
+# never shown — `status` is what the card prints.
+# animation: fauna (rodent, fly and worm), sudoku, nca or phip. Leave blank for no canvas.
 # mode (fauna only): scene | lanes | cycle
+# data (nca only): recorded rollout the canvas replays, fetched on mount
+# body (optional): one line under the title, shown on both lists
+# abstract: verbatim from arXiv, shown only in the /research/ listing
+
+- title: Reasoning with Neural Cellular Automata
+  date: 2026-09-22 # TODO — set to the posting date, and add the url, once the preprint is up
+  status: arXiv 2026
+  # url:
+  animation: nca
+  data: /assets/data/nca-rollout.json
+  # Not on arXiv yet; taken from the manuscript PDF. Re-check against the
+  # posted version when the preprint goes up.
+  abstract: >-
+    Modern AI architectures used to solve visual reasoning tasks typically rely heavily on
+    global connectivity and synchronization. As biological systems demonstrate, though,
+    sophisticated computation can be performed in a more decentralized fashion. In this work,
+    we test the reasoning capabilities of Neural Cellular Automata (NCAs), networks of
+    recurrent cells that use strictly local connectivity and asynchronous updates. NCAs have
+    been extensively studied in artificial life experiments, but it is unclear whether they
+    can perform complex multi-step reasoning. We show that NCAs produce spatio-temporal
+    dynamics capable of solving challenging visual reasoning tasks, including large mazes,
+    Sudoku, and ARC-AGI-1. Furthermore, we provide evidence that NCAs generalize
+    out-of-distribution when running with larger grids, longer rollouts, or parallel trials;
+    and that the latter can be made more efficient via pruning of redundant trajectories. We
+    find that these generalization capabilities depend on training with sample replay and
+    stochastic perturbations, and that stochasticity remains beneficial at test time. Finally,
+    we show that NCAs are robust reasoners capable of dynamically modulating compute to
+    recover efficiently from damage, and that they can scale to solve reasoning in raw pixel
+    space.
+
+- title: Diffusion as a Training Curriculum for Timestep-Free Iterative Reasoning
+  date: 2026-09-01
+  status: arXiv 2026
+  url: https://arxiv.org/abs/2609.01449
+  animation: sudoku
+  abstract: >-
+    Diffusion models and recursive reasoners are both iterative, but they carry information
+    across iterations differently. We add a persistent hidden state to a diffusion denoiser
+    and remove its timestep conditioning, leaving a single shared update that can be run to
+    arbitrary depth. The result is an anytime solver: accuracy keeps improving with inference
+    depth far beyond the rollout lengths and backpropagation window used in training, reaching
+    99.90% exact solve on Sudoku-Extreme. We also obtain 98.93% solve rate on Maze-Unique.
+    Surprisingly, progressive denoising is unnecessary at inference: holding corruption at its
+    maximum by replacing every non-clue variable with fresh Gaussian noise at each step
+    retains near-perfect solving and converges to stable solutions. This simple
+    noise-injection mechanism enables a single trajectory to efficiently explore the solution
+    space and settle on the correct answer without parallel rollouts, candidate selection, or
+    external verifiers required by prior reasoning models. Nonetheless, ordered annealed
+    corruption remains critical during training, which suggests that diffusion's primary
+    contribution to our anytime solver is not a sampling procedure at inference, but a
+    denoising training curriculum.
 
 - title: "MIMIC-MJX: Neuromechanical Emulation of Animal Behavior"
+  date: 2025-11-25
   status: arXiv 2025
   url: https://arxiv.org/abs/2511.20532
   animation: fauna
   mode: scene
+  abstract: >-
+    The primary output of the nervous system is movement and behavior. While recent advances
+    have democratized pose tracking during complex behavior, kinematic trajectories alone
+    provide only indirect access to the underlying control processes. Here we present
+    MIMIC-MJX, a framework for learning biomechanically grounded neural control policies from
+    kinematics. MIMIC-MJX provides a platform for modeling the generative process of motor
+    control by training neural controllers that learn to actuate biomechanical animal models
+    in physics simulation to reproduce real kinematic trajectories. We demonstrate that our
+    implementation is accurate, fast, and generalizable to diverse animal body models, and
+    that it can be trained with modest amounts of motion data. MIMIC-MJX can be used to model
+    motor control policies and simulate behavioral experiments, illustrating its potential as
+    an integrative modeling framework for neuroscience.
 
-- title: Diffusion as a Training Curriculum for Timestep-Free Iterative Reasoning
-  status: arXiv 2026
-  url: https://arxiv.org/abs/2609.01449
-  animation: sudoku
+- title: Spying on parahydrogen-induced polarization transfer using a half-tesla benchtop MRI and hyperpolarized imaging enabled by automation
+  date: 2023-08-08
+  status: Nat Commun 2023
+  url: https://www.nature.com/articles/s41467-023-40539-9
+  animation: phip
+  abstract: >-
+    Nuclear spin hyperpolarization is a quantum effect that enhances the nuclear magnetic
+    resonance signal by several orders of magnitude and has enabled real-time metabolic imaging
+    in humans. However, the translation of hyperpolarization technology into routine use in
+    laboratories and medical centers is hampered by the lack of portable, cost-effective
+    polarizers that are not commercially available. Here, we present a portable, automated
+    polarizer based on parahydrogen-induced hyperpolarization (PHIP) at an intermediate
+    magnetic field of 0.5 T (achieved by permanent magnets). With a footprint of 1 m², we
+    demonstrate semi-continuous, fully automated ¹H hyperpolarization of ethyl acetate-d6 and
+    ethyl pyruvate-d6 to P = 14.4% and 16.2%, respectively, and a ¹³C polarization of
+    1-¹³C-ethyl pyruvate-d6 of P = 7%. The duty cycle for preparing a dose is no more than
+    1 min. To reveal the full potential of ¹H hyperpolarization in an inhomogeneous magnetic
+    field, we convert the anti-phase PHIP signals into in-phase peaks, thereby increasing the
+    SNR by a factor of 5. Using a spin-echo approach allowed us to observe the evolution of
+    spin order distribution in real time while conserving the expensive reagents for reaction
+    monitoring, imaging and potential in vivo usage. This compact polarizer will allow us to
+    pursue the translation of hyperpolarized MRI towards in vivo applications further.

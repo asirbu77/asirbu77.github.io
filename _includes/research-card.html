@@ -1,0 +1,17 @@
+{%- comment -%}
+  One research entry. Takes `item`, and `row` for the wide listing on /research/
+  where the canvas sits beside the text instead of above it.
+{%- endcomment -%}
+<article class="card{% if include.row %} card--row{% endif %}{% if include.item.url %} card--link{% endif %}">
+  {% if include.item.animation %}
+  <canvas data-anim="{{ include.item.animation }}"{% if include.item.mode %} data-mode="{{ include.item.mode }}"{% endif %}{% if include.item.data %} data-src="{{ include.item.data | relative_url }}"{% endif %} aria-hidden="true"></canvas>
+  {% endif %}
+  <div class="card__body">
+    <p class="status{% if include.item.quiet %} status--quiet{% endif %}">
+      {% if include.item.url %}<a href="{{ include.item.url }}" target="_blank" rel="noopener noreferrer">{{ include.item.status }}</a>{% else %}{{ include.item.status }}{% endif %}
+    </p>
+    <h3>{{ include.item.title }}</h3>
+    {% if include.item.body %}<p>{{ include.item.body }}</p>{% endif %}
+    {% if include.row and include.item.abstract %}<p class="card__abstract">{{ include.item.abstract }}</p>{% endif %}
+  </div>
+</article>

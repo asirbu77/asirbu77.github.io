@@ -1,7 +1,8 @@
 /* Canvas animations for the research entries.
-   Each <canvas data-anim="fauna|sudoku"> mounts one engine. Engines pause when
-   the canvas scrolls out of view, and render a single settled frame when the
-   visitor has asked for reduced motion. */
+   Each <canvas data-anim="fauna|sudoku|nca|phip"> mounts one engine. Engines pause
+   when the canvas scrolls out of view, and render a single settled frame when
+   the visitor has asked for reduced motion. An engine that needs an asset is
+   handed a repaint callback and fetches it from the canvas's data-src. */
 (function () {
   "use strict";
 
@@ -9,6 +10,11 @@
   var BONE = "242,237,228";
   var HOT = "#a970ff";
   var HOT_RGB = "169,112,255";
+  var DIM = "#8b9aa8";   /* --dim */
+  var EDGE = "#232e39";  /* --line */
+  var EDGE_LIT = "#3a4a5c"; /* the card's own hover border, for the lead panel */
+  var LIQ = "#6fc3e8", LIQ_RGB = "111,195,232"; /* precursor-catalyst solution */
+  var N2C = "#7d8b99";   /* nitrogen, the working gas that is not the point */
 
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
   function wrap(v, m) { return ((v % m) + m) % m; }
@@ -296,21 +302,435 @@
     };
   }
 
+  /* ----- engine: nca ----------------------------------------------------- */
+
+  /* The ARC-AGI palette, indexed by cell value, exactly as the paper's figures
+     use it. A rollout frame is one digit per cell, row-major. */
+  var ARC = ["#000000", "#0074D9", "#FF4136", "#2ECC40", "#FFDC00",
+             "#AAAAAA", "#F012BE", "#FF851B", "#7FDBFF", "#870C25"];
+
+  /* One square grid panel. `cells` may be null, which draws the empty frame the
+     card shows while the rollout is still in flight. Interior rules are dropped
+     once a cell is small enough that the rule would outweigh it — which is what
+     happens to the two thumbnails. */
+  function arcPanel(ctx, x, y, size, n, cells, edge) {
+    var cs = size / n, g, gx, gy;
+
+    ctx.fillStyle = "#000";
+    ctx.fillRect(x, y, size, size);
+
+    if (cells) {
+      for (var r = 0; r < n; r++) {
+        for (var q = 0; q < n; q++) {
+          var v = cells.charCodeAt(r * n + q) - 48;
+          if (v < 1 || v > 9) continue; /* 0 is the background, already black */
+          ctx.fillStyle = ARC[v];
+          ctx.fillRect(Math.round(x + q * cs), Math.round(y + r * cs),
+                       Math.ceil(cs), Math.ceil(cs));
+        }
+      }
+
+      if (cs >= 5.5) {
+        ctx.strokeStyle = "rgba(105,105,105,.5)";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        for (g = 0; g <= n; g++) {
+          gx = Math.round(x + g * cs) + 0.5; gy = Math.round(y + g * cs) + 0.5;
+          ctx.moveTo(gx, y); ctx.lineTo(gx, y + size);
+          ctx.moveTo(x, gy); ctx.lineTo(x + size, gy);
+        }
+        ctx.stroke();
+      }
+    }
+
+    ctx.strokeStyle = edge;
+    ctx.lineWidth = 1;
+    ctx.strokeRect(Math.round(x) + 0.5, Math.round(y) + 0.5,
+                   Math.round(size) - 1, Math.round(size) - 1);
+  }
+
+  /* Canvas has no letter-spacing, so the panel captions are set a glyph at a
+     time to carry the same tracking as the mono labels in the page's CSS.
+     Passing measure:true walks the string without drawing, to right-align. */
+  function tracked(ctx, x, y, text, color, px, measure) {
+    ctx.font = "500 " + px + 'px "IBM Plex Mono", ui-monospace, monospace';
+    ctx.textAlign = "left";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillStyle = color;
+    var cx = x;
+    for (var i = 0; i < text.length; i++) {
+      if (!measure) ctx.fillText(text.charAt(i), cx, y);
+      cx += ctx.measureText(text.charAt(i)).width + px * 0.11;
+    }
+    return cx - x;
+  }
+
+  function ncaEngine(canvas, repaint) {
+    /* Layout: input and target stacked as thumbnails on the left, the rollout
+       large on the right, each under a caption band. The trio is square-ish and
+       the canvas is wide, so it is centred rather than stretched — same
+       treatment the sudoku board gets. */
+    var CAP = 13;             /* caption band above each panel, px */
+    var FPS = 11;             /* the source figure was rendered at 10 fps */
+    var HOLD = 1.3;           /* beat on the solved grid before looping, s */
+    var CAP_PX = 8.5;
+
+    /* The rollout is a recorded trajectory, not a simulation, so it arrives as
+       an asset. It is only fetched for cards that name one, and the card draws
+       its empty frames until it lands. */
+    var data = null, clock = 0;
+    var src = canvas.dataset.src;
+    if (src && window.fetch) {
+      fetch(src, { credentials: "same-origin" })
+        .then(function (res) { return res.ok ? res.json() : null; })
+        .then(function (json) {
+          if (!json || !json.frames || !json.frames.length) return;
+          data = json;
+          repaint();
+        })
+        .catch(function () { /* the card keeps its empty panels */ });
+    }
+
+    return function (dt) {
+      var box = fit(canvas), ctx = box[0], w = box[1], h = box[2];
+
+      /* Spacing scales off the short side, so the trio keeps its proportions
+         in a letterbox card and in the tall square figure on /research/. */
+      var U = Math.min(w, h);
+      var pad = Math.round(U * 0.055);
+      var gap = Math.max(4, Math.round(U * 0.035));
+      var gapX = Math.round(U * 0.075);
+      /* Both columns are CAP + big tall, so the thumbnails split what is left
+         of the right-hand column once their own captions are taken out:
+         small = (big - CAP - gap) / 2. Substituting that into the trio's width
+         gives 1.5 * big - (CAP + gap) / 2 + gapX, which is the second bound —
+         without it a canvas taller than it is wide runs off the right edge. */
+      var big = Math.min(h - 2 * pad - CAP,
+                         (w - 2 * pad - gapX + (CAP + gap) / 2) / 1.5);
+      var small = (big - CAP - gap) / 2;
+      var ox = Math.max(pad, (w - (small + gapX + big)) / 2);
+      var oy = Math.max(pad, (h - big - CAP) / 2);
+      var bx = ox + small + gapX;
+      var baseline = oy + CAP - 4;
+
+      var n = data ? data.grid : 1;
+      var last = data ? data.frames.length - 1 : 0;
+      var i = last;
+
+      if (data && !REDUCED) {
+        clock += dt;
+        if (clock > last / FPS + HOLD) clock = 0;
+        i = clamp(Math.floor(clock * FPS), 0, last);
+      }
+
+      tracked(ctx, ox, baseline, "INPUT", DIM, CAP_PX);
+      arcPanel(ctx, ox, oy + CAP, small, n, data && data.input, EDGE);
+
+      var ty = oy + CAP + small + gap;
+      tracked(ctx, ox, ty + CAP - 4, "TARGET", DIM, CAP_PX);
+      arcPanel(ctx, ox, ty + CAP, small, n, data && data.target, EDGE);
+
+      tracked(ctx, bx, baseline, "ROLLOUT", DIM, CAP_PX);
+      if (data) {
+        var step = "STEP " + (i < 10 ? "0" + i : i);
+        var sw = tracked(ctx, 0, 0, step, HOT, CAP_PX, true);
+        tracked(ctx, bx + big - sw, baseline, step, HOT, CAP_PX);
+      }
+      arcPanel(ctx, bx, oy + CAP, big, n, data && data.frames[i], EDGE_LIT);
+    };
+  }
+
+  /* ----- engine: phip ----------------------------------------------------- */
+
+  /* The portable PHIP polarizer of the Nature Communications paper, running the
+     automated routine of its Fig. 8d: eleven steps, each naming the valves it
+     switches. S4 is the one normally open valve, so it starts and ends open;
+     every other S valve is normally closed. Valve states below are the paper's;
+     which trunk line is drawn live is a simplification, since the real manifold
+     carries more branches than survive at card size. */
+
+  var PHIP_STAGES = ["SAMPLE INJECTION", "pH2 BUBBLING & SOT", "SAMPLE EJECTION"];
+  var PHIP_START = { M1: 0, M2: 0, S1: 0, S2: 0, S3: 0, S4: 1, S5: 0, S6: 0, S7: 0 };
+
+  var PHIP_STEPS = [
+    { st: 0, name: "OPEN S5, S7, M2",      t: 0.8, set: { S5: 1, S7: 1, M2: 1 }, gas: "vent" },
+    { st: 0, name: "ACTUATE SYRINGE",      t: 1.8, set: {}, act: "fill", gas: "inject" },
+    { st: 0, name: "CLOSE S5, S7, M2",     t: 0.7, set: { S5: 0, S7: 0, M2: 0 } },
+    { st: 1, name: "pH2 EQUALIZATION",     t: 1.1, set: { S1: 1, S6: 1 }, gas: "ph2" },
+    { st: 1, name: "START BUBBLING",       t: 2.8, set: { S3: 1, S5: 1, S4: 0, S6: 0 }, act: "bubble", gas: "ph2" },
+    { st: 1, name: "STOP BUBBLING",        t: 1.0, set: { S1: 0, S3: 0, S5: 0, S4: 1 } },
+    { st: 1, name: "APPLY SOT",            t: 1.6, set: {}, act: "sot" },
+    { st: 2, name: "pH2 DEPRESSURIZATION", t: 1.0, set: { S5: 1, S6: 1, S7: 1 }, gas: "vent" },
+    { st: 2, name: "SAMPLE EJECTION",      t: 1.8, set: { M1: 1, S2: 1, S3: 1, S5: 0, S6: 0 }, act: "eject", gas: "n2" },
+    { st: 2, name: "DEPRESSURIZE N2",      t: 1.0, set: { M1: 0, S2: 0, S5: 1, S6: 1 }, gas: "vent" },
+    { st: 2, name: "POWER OFF ALL VALVES", t: 0.9, set: PHIP_START }
+  ];
+
+  var PHIP_TOTAL = 0;
+  (function () {
+    for (var i = 0; i < PHIP_STEPS.length; i++) {
+      var prev = i ? PHIP_STEPS[i - 1].state : PHIP_START, state = {}, k;
+      for (k in prev) state[k] = prev[k];
+      for (k in PHIP_STEPS[i].set) state[k] = PHIP_STEPS[i].set[k];
+      PHIP_STEPS[i].state = state;
+      PHIP_STEPS[i].t0 = PHIP_TOTAL;
+      PHIP_TOTAL += PHIP_STEPS[i].t;
+    }
+  })();
+
+  function phipAt(clock) {
+    var c = wrap(clock, PHIP_TOTAL), idx = PHIP_STEPS.length - 1;
+    for (var j = 0; j < PHIP_STEPS.length; j++) {
+      if (c < PHIP_STEPS[j].t0 + PHIP_STEPS[j].t) { idx = j; break; }
+    }
+    var step = PHIP_STEPS[idx], p = (c - step.t0) / step.t;
+    /* Solution is in the tube from the moment the syringe fires until it is
+       pushed back out; both edges ramp so the level reads as a movement. */
+    var level = 0;
+    if (idx === 1) level = p;
+    else if (idx > 1 && idx < 8) level = 1;
+    else if (idx === 8) level = 1 - Math.min(1, p * 1.25);
+    return {
+      idx: idx, step: step, level: level,
+      bubbling: step.act === "bubble", sot: step.act === "sot",
+      valves: step.state, gas: step.gas || null
+    };
+  }
+
+  /* --- parts ------------------------------------------------------------- */
+
+  /* Contain-fit a design box into the canvas, so one set of coordinates serves
+     the letterbox card on the homepage and the square figure on /research/. */
+  function contain(w, h, dw, dh, pad) {
+    var s = Math.min((w - 2 * pad) / dw, (h - 2 * pad) / dh);
+    return { s: s, ox: (w - dw * s) / 2, oy: (h - dh * s) / 2 };
+  }
+
+  function centred(ctx, cx, y, text, color, px) {
+    tracked(ctx, cx - tracked(ctx, 0, 0, text, color, px, true) / 2, y, text, color, px);
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  /* A valve as a labelled chip, lit while the routine holds it open. */
+  function chip(ctx, x, y, w, h, label, on, px) {
+    roundRect(ctx, x, y, w, h, Math.min(2.5, h / 4));
+    ctx.fillStyle = on ? "rgba(" + HOT_RGB + ",0.20)" : "rgba(17,24,32,0.9)";
+    ctx.fill();
+    ctx.strokeStyle = on ? HOT : EDGE;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    if (px >= 5) centred(ctx, x + w / 2, y + h / 2 + px * 0.36, label, on ? HOT : DIM, px);
+  }
+
+  /* A run of pipe. Live runs carry a marching dash in the gas's own colour. */
+  function pipe(ctx, pts, lw, live, colour, t) {
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.setLineDash([]);
+    ctx.strokeStyle = EDGE;
+    ctx.lineWidth = lw;
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for (var i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.stroke();
+    if (!live) return;
+    ctx.strokeStyle = colour;
+    ctx.lineWidth = Math.max(lw - 0.6, 1);
+    ctx.setLineDash([lw * 1.6, lw * 2.2]);
+    ctx.lineDashOffset = -t * lw * 26;
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  function cylinder(ctx, cx, cy, w, h, label, live, px) {
+    var x = cx - w / 2, y = cy - h / 2, r = w / 2;
+    ctx.beginPath();
+    ctx.moveTo(x, y + h - r * 0.4);
+    ctx.lineTo(x, y + r);
+    ctx.arc(cx, y + r, r, Math.PI, 0);
+    ctx.lineTo(x + w, y + h - r * 0.4);
+    ctx.arcTo(x + w, y + h, cx, y + h, r * 0.5);
+    ctx.arcTo(x, y + h, x, y + h - r * 0.4, r * 0.5);
+    ctx.closePath();
+    ctx.fillStyle = live ? "rgba(" + HOT_RGB + ",0.14)" : "rgba(17,24,32,0.9)";
+    ctx.fill();
+    ctx.strokeStyle = live ? HOT : EDGE;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx, y - h * 0.10); ctx.lineTo(cx, y);
+    ctx.stroke();
+    if (px >= 5) centred(ctx, cx, cy + h * 0.16, label, live ? HOT : DIM, px);
+  }
+
+  /* The 10 mm high-pressure tube: glass, solution, pH2 bubbles. */
+  function reactorTube(ctx, x, y, w, h, level, bub, t) {
+    /* Half the width exactly: any less and the bottom arc starts inboard of the
+       walls, so the path corners across to reach it and the round bottom reads
+       as a notched one. */
+    var r = w / 2;
+
+    function outline() {
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x, y + h - r);
+      ctx.arc(x + w / 2, y + h - r, r, Math.PI, 0, true);
+      ctx.lineTo(x + w, y);
+    }
+
+    outline();
+    ctx.strokeStyle = EDGE_LIT;
+    ctx.lineWidth = Math.max(1, w * 0.045);
+    ctx.lineJoin = "round";
+    ctx.stroke();
+
+    var fillH = (h - r * 0.4) * 0.62 * level;
+    if (fillH > 0.5) {
+      ctx.save();
+      outline();
+      ctx.closePath();
+      ctx.clip();
+      var top = y + h - fillH;
+      ctx.fillStyle = "rgba(" + LIQ_RGB + ",0.55)";
+      ctx.fillRect(x, top, w, fillH);
+      ctx.strokeStyle = LIQ;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x, top + 0.5); ctx.lineTo(x + w, top + 0.5);
+      ctx.stroke();
+
+      if (bub) {
+        for (var b = 0; b < 9; b++) {
+          var ph = (t * 1.5 + b * 0.31) % 1;
+          var by = y + h - r * 0.6 - ph * fillH;
+          var bx = x + w * (0.26 + 0.48 * ((b * 0.37) % 1)) + Math.sin(ph * 7 + b) * w * 0.07;
+          ctx.beginPath();
+          ctx.arc(bx, by, Math.max(0.8, w * (0.06 + 0.05 * ((b * 0.53) % 1))), 0, 7);
+          ctx.fillStyle = "rgba(" + HOT_RGB + "," + (0.85 * (1 - ph * 0.45)) + ")";
+          ctx.fill();
+        }
+      }
+      ctx.restore();
+    }
+
+    /* cap, and the two capillaries that reach down into the solution */
+    ctx.strokeStyle = EDGE_LIT;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x - w * 0.22, y); ctx.lineTo(x + w + w * 0.22, y);
+    ctx.stroke();
+    ctx.strokeStyle = EDGE;
+    ctx.beginPath();
+    ctx.moveTo(x + w * 0.32, y); ctx.lineTo(x + w * 0.32, y + h * 0.82);
+    ctx.moveTo(x + w * 0.68, y); ctx.lineTo(x + w * 0.68, y + h * 0.55);
+    ctx.stroke();
+  }
+
+  /* --- the schematic ------------------------------------------------------ */
+
+  var PHIP_DW = 200, PHIP_DH = 124; /* the last 8 units are the caption band */
+
+  function phipEngine(canvas) {
+    var T = REDUCED ? PHIP_STEPS[4].t0 + 1.2 : 0;
+
+    return function (dt) {
+      var box = fit(canvas), ctx = box[0], w = box[1], h = box[2];
+      T += dt;
+      var s = phipAt(T);
+
+      var f = contain(w, h, PHIP_DW, PHIP_DH, 6), k = f.s;
+      function X(v) { return f.ox + v * k; }
+      function Y(v) { return f.oy + v * k; }
+      var px = clamp(k * 5.2, 4.2, 7.5);
+      var lw = Math.max(1, k * 0.9);
+      var gas = s.gas;
+
+      /* trunk runs. The syringe pump sits off-frame, so its line enters at the
+         edge — the ordinary schematic convention, and the only thing that fits. */
+      pipe(ctx, [[X(138), Y(30)], [X(160), Y(30)]], lw, gas === "ph2", HOT, T);
+      pipe(ctx, [[X(138), Y(74)], [X(160), Y(74)]], lw, gas === "n2", N2C, T);
+      pipe(ctx, [[X(86), Y(52)], [X(70), Y(52)], [X(70), Y(22)], [X(55), Y(22)]],
+           lw, gas === "ph2" || gas === "n2", gas === "n2" ? N2C : HOT, T);
+      pipe(ctx, [[X(112), Y(96)], [X(112), Y(106)], [X(176), Y(106)]], lw, gas === "vent", N2C, T);
+      pipe(ctx, [[X(47), Y(22)], [X(47), Y(10)], [X(64), Y(10)]], lw, s.valves.M1 === 1, LIQ, T);
+      pipe(ctx, [[X(2), Y(22)], [X(41), Y(22)]], lw, gas === "inject", LIQ, T);
+
+      cylinder(ctx, X(172), Y(30), 18 * k, 30 * k, "pH2", gas === "ph2", px);
+      cylinder(ctx, X(172), Y(74), 18 * k, 30 * k, "N2", gas === "n2" || gas === "vent", px);
+      if (px >= 5) tracked(ctx, X(178), Y(103), "EX.", DIM, px);
+
+      /* the gas supply unit's seven solenoid valves */
+      roundRect(ctx, X(86), Y(24), 52 * k, 72 * k, 3);
+      ctx.fillStyle = "rgba(17,24,32,0.55)";
+      ctx.fill();
+      ctx.strokeStyle = EDGE;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      for (var v = 0; v < 7; v++) {
+        var col = v % 2, row = (v - col) / 2;
+        chip(ctx, X(90) + col * 24 * k, Y(28) + row * 16 * k, 20 * k, 12 * k,
+             "S" + (v + 1), s.valves["S" + (v + 1)] === 1, px);
+      }
+
+      /* magnet, reactor tube, and the two manual valves */
+      roundRect(ctx, X(16), Y(38), 44 * k, 60 * k, 3);
+      ctx.fillStyle = "rgba(17,24,32,0.9)";
+      ctx.fill();
+      ctx.strokeStyle = EDGE;
+      ctx.stroke();
+      reactorTube(ctx, X(41), Y(22), 14 * k, 66 * k, s.level, s.bubbling, T);
+
+      if (s.sot) {
+        ctx.strokeStyle = "rgba(" + HOT_RGB + "," + (0.55 + 0.45 * Math.sin(T * 18)) + ")";
+        ctx.lineWidth = 1.2;
+        for (var g = 0; g < 3; g++) {
+          ctx.beginPath();
+          ctx.ellipse(X(48), Y(66), (10 + g * 7) * k, (14 + g * 6) * k, 0, 0, 7);
+          ctx.stroke();
+        }
+      }
+
+      chip(ctx, X(64) - 1, Y(4), 18 * k, 12 * k, "M1", s.valves.M1 === 1, px);
+      chip(ctx, X(6), Y(16), 18 * k, 12 * k, "M2", s.valves.M2 === 1, px);
+      if (px >= 5) tracked(ctx, X(84), Y(9), "MRI", DIM, px * 0.92);
+
+      /* caption band */
+      if (px >= 5) {
+        tracked(ctx, X(2), Y(122), PHIP_STAGES[s.step.st], DIM, px * 0.92);
+        var nw = tracked(ctx, 0, 0, s.step.name, HOT, px * 0.92, true);
+        tracked(ctx, X(198) - nw, Y(122), s.step.name, HOT, px * 0.92);
+      }
+    };
+  }
+
   /* ----- mounting -------------------------------------------------------- */
 
-  var ENGINES = { fauna: faunaEngine, sudoku: sudokuEngine };
+  var ENGINES = { fauna: faunaEngine, sudoku: sudokuEngine, nca: ncaEngine, phip: phipEngine };
 
   function mount(canvas) {
     var build = ENGINES[canvas.dataset.anim];
     if (!build || !canvas.getContext) return;
 
-    var step = build(canvas);
+    function repaint() { step(0); }
+
+    var step = build(canvas, repaint);
     var last = performance.now();
     var raf = null;
     var visible = true;
 
+    /* rAF hands back the frame's own timestamp, which can predate the
+       performance.now() seeded above, so the first dt is floored at zero. */
     function frame(now) {
-      var dt = Math.min((now - last) / 1000, 0.05);
+      var dt = clamp((now - last) / 1000, 0, 0.05);
       last = now;
       step(dt);
       raf = requestAnimationFrame(frame);

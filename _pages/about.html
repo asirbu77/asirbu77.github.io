@@ -41,22 +41,13 @@ permalink: /
   <div class="section__wrap">
     <div><p class="label">Research</p></div>
     <div>
+      {% assign research = site.data.research | sort: "date" | reverse %}
       <div class="work">
-        {% for item in site.data.research %}
-        <article class="card{% if item.url %} card--link{% endif %}">
-          {% if item.animation %}
-          <canvas data-anim="{{ item.animation }}"{% if item.mode %} data-mode="{{ item.mode }}"{% endif %} aria-hidden="true"></canvas>
-          {% endif %}
-          <div class="card__body">
-            <p class="status{% if item.quiet %} status--quiet{% endif %}">
-              {% if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.status }}</a>{% else %}{{ item.status }}{% endif %}
-            </p>
-            <h3>{{ item.title }}</h3>
-            {% if item.body %}<p>{{ item.body }}</p>{% endif %}
-          </div>
-        </article>
+        {% for item in research %}
+        {% include research-card.html item=item %}
         {% endfor %}
       </div>
+      <a href="{{ '/research/' | relative_url }}">All research &rarr;</a>
     </div>
   </div>
 </section>
@@ -112,23 +103,6 @@ permalink: /
         </figure>
         {% endfor %}
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section__wrap">
-    <div><p class="label">Publications</p></div>
-    <div>
-      {% for item in site.data.publications %}
-      <p class="entry">
-        <span class="entry__year">{{ item.year | default: item.date | date: "%Y" }}</span>
-        <span>
-          <a href="{{ item.links[0].url }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a>
-          <br><span class="entry__meta">{{ item.venue }}</span>
-        </span>
-      </p>
-      {% endfor %}
     </div>
   </div>
 </section>
