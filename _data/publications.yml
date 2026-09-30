@@ -1,3 +1,26 @@
+- title: Reasoning with Neural Cellular Automata
+  authors:
+    - Mayalen Etcheverry
+    - Pietro Miotti
+    - Aidan Sirbu
+    - Konstantin Schürholt
+    - Mariia Drozdova
+    - Arna Ghosh
+    - Blaise Agüera y Arcas
+    - James Manyika
+    - Blake Richards
+    - Eyvind Niklasson
+  venue: arXiv Preprint, 2026
+  venue-short: arXiv 2026
+  tags: []
+  type: preprint
+  doi: 10.48550/arXiv.2609.36126
+  date: 2026-09-28
+  links:
+    - url: https://arxiv.org/abs/2609.36126
+      name: Paper
+      icon: fa-solid fa-file
+
 - title: Diffusion as a Training Curriculum for Timestep-Free Iterative Reasoning
   authors:
     - Mariia Drozdova
@@ -7,10 +30,10 @@
     - Mayalen Etcheverry
     - Eyvind Niklasson
     - Blake Richards
-  venue: arXiv Preprint, 2026
-  venue-short: arXiv 2026
+  venue: "NeurIPS 2026 Workshop: Beyond Next Token Prediction (BeNTo)"
+  venue-short: NeurIPS 2026 BeNTo Workshop
   tags: []
-  type: preprint
+  type: workshop-paper
   doi: 10.48550/arXiv.2609.01449
   date: 2026-09-01
   links:

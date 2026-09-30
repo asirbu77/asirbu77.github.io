@@ -12,7 +12,7 @@ author:
   avatar: "profile.png"
   og_image: "icon.jpg"
   bio-short: >-
-    My research interests lie at the intersection of deep learning, robotics, and computational neuroscience. My main focus is building embodied agents to investigate theories of motor control and sensorimotor learning. I also work on iterative and self-organizing computation.
+    My research interests lie at the intersection of deep learning, computational neuroscience, and robotics. In one vein, I train embodied agents to investigate theories of motor control and sensorimotor learning. In another, I focus on looped iterative reasoning and self-organizing computation.
   bio: >-
     <p>I am a PhD student at Mila – Quebec AI Institute and McGill University, supervised by <a href='https://mila.quebec/en/directory/blake-richards' target='_blank' rel='noopener noreferrer'>Dr. Blake A. Richards</a>, and a student researcher on the Paradigms of Intelligence team at Google.</p>
 

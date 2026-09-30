@@ -8,13 +8,11 @@
 # abstract: verbatim from arXiv, shown only in the /research/ listing
 
 - title: Reasoning with Neural Cellular Automata
-  date: 2026-09-22 # TODO — set to the posting date, and add the url, once the preprint is up
+  date: 2026-09-28
   status: arXiv 2026
-  # url:
+  url: https://arxiv.org/abs/2609.36126
   animation: nca
   data: /assets/data/nca-rollout.json
-  # Not on arXiv yet; taken from the manuscript PDF. Re-check against the
-  # posted version when the preprint goes up.
   abstract: >-
     Modern AI architectures used to solve visual reasoning tasks typically rely heavily on
     global connectivity and synchronization. As biological systems demonstrate, though,
@@ -35,7 +33,7 @@
 
 - title: Diffusion as a Training Curriculum for Timestep-Free Iterative Reasoning
   date: 2026-09-01
-  status: arXiv 2026
+  status: NeurIPS 2026 BeNTo Workshop
   url: https://arxiv.org/abs/2609.01449
   animation: sudoku
   abstract: >-
