@@ -1,5 +1,6 @@
 /* Canvas animations for the research entries.
-   Each <canvas data-anim="fauna|sudoku|nca|phip"> mounts one engine. Engines pause
+   Each <canvas data-anim="fauna|sudoku|nca|phip"> mounts one engine; a
+   <video data-loop> gets the same play/pause treatment. Engines pause
    when the canvas scrolls out of view, and render a single settled frame when
    the visitor has asked for reduced motion. An engine that needs an asset is
    handed a repaint callback and fetches it from the canvas's data-src. */
@@ -768,9 +769,40 @@
     window.addEventListener("resize", function () { step(0); });
   }
 
+  /* A <video data-loop> stands in for an engine when an entry has footage of
+     its own. It carries no autoplay attribute, so nothing moves until this
+     says so: under reduced motion it stays on its poster, otherwise it plays
+     muted while in view and pauses with the canvases. */
+  function mountVideo(video) {
+    if (REDUCED) return;
+    var visible = true;
+
+    function start() {
+      var p = video.play();
+      if (p && p.catch) p.catch(function () { /* blocked: the poster stays */ });
+    }
+
+    function sync() {
+      if (visible && !document.hidden) start(); else video.pause();
+    }
+
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        visible = entries[0].isIntersecting;
+        sync();
+      }, { rootMargin: "120px" }).observe(video);
+    } else {
+      start();
+    }
+
+    document.addEventListener("visibilitychange", sync);
+  }
+
   function init() {
     var nodes = document.querySelectorAll("canvas[data-anim]");
     for (var i = 0; i < nodes.length; i++) mount(nodes[i]);
+    var clips = document.querySelectorAll("video[data-loop]");
+    for (var j = 0; j < clips.length; j++) mountVideo(clips[j]);
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);

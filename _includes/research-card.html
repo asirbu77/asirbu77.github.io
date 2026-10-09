@@ -3,7 +3,12 @@
   where the canvas sits beside the text instead of above it.
 {%- endcomment -%}
 <article class="card{% if include.row %} card--row{% endif %}{% if include.item.url %} card--link{% endif %}">
-  {% if include.item.animation %}
+  {% if include.item.video %}
+  <div class="card__clip">
+    <video data-loop src="{{ include.item.video | relative_url }}"{% if include.item.poster %} poster="{{ include.item.poster | relative_url }}"{% endif %} muted loop playsinline preload="metadata" aria-hidden="true"></video>
+    {% if include.item.logo %}<img class="card__logo" src="{{ include.item.logo | relative_url }}" alt="{{ include.item.logo_alt | default: '' }}">{% endif %}
+  </div>
+  {% elsif include.item.animation %}
   <canvas data-anim="{{ include.item.animation }}"{% if include.item.mode %} data-mode="{{ include.item.mode }}"{% endif %}{% if include.item.data %} data-src="{{ include.item.data | relative_url }}"{% endif %} aria-hidden="true"></canvas>
   {% endif %}
   <div class="card__body">
