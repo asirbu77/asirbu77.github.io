@@ -15,6 +15,7 @@
     <p class="status{% if include.item.quiet %} status--quiet{% endif %}">
       {% if include.item.url %}<a href="{{ include.item.url }}" target="_blank" rel="noopener noreferrer">{{ include.item.status }}</a>{% else %}{{ include.item.status }}{% endif %}
     </p>
+    {% if include.item.project %}<a class="status status--project" href="{{ include.item.project }}" target="_blank" rel="noopener noreferrer">Project page</a>{% endif %}
     <h3>{{ include.item.title }}</h3>
     {% if include.item.body %}<p>{{ include.item.body }}</p>{% endif %}
     {% if include.row and include.item.abstract %}<p class="card__abstract">{{ include.item.abstract }}</p>{% endif %}

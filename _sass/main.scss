@@ -593,6 +593,28 @@ h1, h2, h3 { text-wrap: balance; }
         color: var(--dim);
         border-color: var(--line);
     }
+
+    /* a second chip beside the status; it sits above the card-wide link's
+       overlay so it opens the project page rather than the paper */
+    &--project {
+        position: relative;
+        z-index: 2;
+        margin-left: 6px;
+        color: var(--dim);
+        border-color: var(--line);
+        text-decoration: none;
+        transition: color 0.2s, border-color 0.2s;
+
+        &:hover {
+            color: var(--bone);
+            border-color: var(--bone);
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--hot);
+            outline-offset: 3px;
+        }
+    }
 }
 
 // --- lists -----------------------------------------------------------------

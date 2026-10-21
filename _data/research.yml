@@ -7,12 +7,15 @@
 # video: a muted looping clip shown in place of a canvas; takes precedence over animation
 # poster (video only): still frame shown while the clip loads and under reduced motion
 # logo, logo_alt (video only): image pinned to the clip's bottom-left corner, and its alt text
+# project (optional): project page, shown as a second chip beside the status
 # body (optional): one line under the title, shown on both lists
 # abstract: verbatim from arXiv, shown only in the /research/ listing
 
 - title: A latent control model for realistic rodent motion
   date: 2026-09-29
   status: NeurIPS 2026
+  url: https://arxiv.org/abs/2610.27279
+  project: https://aidansirbu.com/SCAMPER-site/
   video: /assets/video/scamper.mp4
   poster: /assets/video/scamper-poster.jpg
   logo: /assets/video/scamper-logo.webp
@@ -22,20 +25,19 @@
     community. Embodied models will enhance our ability to make direct comparisons between
     biological and artificial agents. To make such comparisons effective, though, we need
     embodied models that actually move like animals. Previous work has developed virtual animal
-    bodies and techniques for training realistic motion through imitation. However, to-date,
+    bodies and techniques for training realistic motion through imitation. However, to date,
     there is no system for embodied animal modeling that produces natural movements both during
-    trained, goal-directed behavior, and during exploration driven by random generation. Here,
-    we introduce Simulated Control via Augmented Motor Priors for Embodied Reinforcement
-    learning (SCAMPER), a system for training an embodied virtual rat model, enabling natural
-    movements during both goal-directed behavior and random exploration. SCAMPER uses a
-    variational architecture with two distinct priors, a motion prior for control and a
-    behavior prior for exploration. We show that combining both of these priors allows SCAMPER
-    to generate realistic behavior during exploration and exploit the task structure
-    effectively. As well, SCAMPER can learn from sparse rewards as a result of the diverse
-    movements induced by the behavior prior, allowing the system to model realistic sparse
-    reward tasks from experimental neuroscience. Altogether, SCAMPER provides the neuro-AI
-    community with an effective new system for training embodied models of rodents on
-    realistic tasks.
+    trained goal-directed behavior, and during exploration driven by random generation. Here, we
+    introduce Simulated Control via Augmented Motor Priors for Embodied Reinforcement learning
+    (SCAMPER), a system for training an embodied virtual rat model, enabling natural movements
+    during both goal-directed behavior and random exploration. SCAMPER uses a variational
+    architecture with two distinct priors, a motion prior for control and a behavior prior for
+    exploration. We show that combining both of these priors allows SCAMPER to generate
+    realistic behavior during exploration and exploit the task structure effectively. SCAMPER
+    can also learn from sparse rewards as a result of the diverse movements induced by the
+    behavior prior, allowing the system to model realistic sparse-reward tasks from experimental
+    neuroscience. Altogether, SCAMPER provides the neuro-AI community with an effective new
+    system for training embodied models of rodents on realistic tasks.
 
 - title: Reasoning with Neural Cellular Automata
   date: 2026-09-28
