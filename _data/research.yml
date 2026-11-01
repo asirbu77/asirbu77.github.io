@@ -10,8 +10,11 @@
 # project (optional): project page, shown as a second chip beside the status
 # body (optional): one line under the title, shown on both lists
 # abstract: verbatim from arXiv, shown only in the /research/ listing
+# section: heading the entry is grouped under on /research/; the order of sections
+#   is set in _pages/research.html
 
 - title: A latent control model for realistic rodent motion
+  section: Embodied learning for neuro-AI
   date: 2026-09-29
   status: NeurIPS 2026
   url: https://arxiv.org/abs/2610.27279
@@ -40,6 +43,7 @@
     system for training embodied models of rodents on realistic tasks.
 
 - title: Reasoning with Neural Cellular Automata
+  section: Iterative reasoning
   date: 2026-09-28
   status: arXiv 2026
   url: https://arxiv.org/abs/2609.36126
@@ -64,6 +68,7 @@
     space.
 
 - title: Diffusion as a Training Curriculum for Timestep-Free Iterative Reasoning
+  section: Iterative reasoning
   date: 2026-09-01
   status: NeurIPS 2026 BeNTo Workshop
   url: https://arxiv.org/abs/2609.01449
@@ -86,6 +91,7 @@
     denoising training curriculum.
 
 - title: "MIMIC-MJX: Neuromechanical Emulation of Animal Behavior"
+  section: Embodied learning for neuro-AI
   date: 2025-11-25
   status: arXiv 2025
   url: https://arxiv.org/abs/2511.20532
@@ -105,6 +111,7 @@
     an integrative modeling framework for neuroscience.
 
 - title: Spying on parahydrogen-induced polarization transfer using a half-tesla benchtop MRI and hyperpolarized imaging enabled by automation
+  section: In another life…
   date: 2023-08-08
   status: Nat Commun 2023
   url: https://www.nature.com/articles/s41467-023-40539-9

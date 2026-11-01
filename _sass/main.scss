@@ -575,6 +575,26 @@ h1, h2, h3 { text-wrap: balance; }
     margin-bottom: 40px;
 }
 
+/* Themed groups on /research/, each headed by a ruled title. The last group is
+   earlier work outside the current themes, so its heading steps back. */
+.stack-section {
+    max-width: 880px;
+
+    h2 {
+        margin: 0 0 16px;
+        padding-bottom: 12px;
+        font-size: 1.25rem;
+        color: var(--bone);
+        border-bottom: 1px solid var(--line);
+    }
+
+    &--past h2 {
+        font-style: italic;
+        font-weight: 500;
+        color: var(--dim);
+    }
+}
+
 
 .status {
     display: inline-block;

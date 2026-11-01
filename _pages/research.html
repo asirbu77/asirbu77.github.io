@@ -2,15 +2,25 @@
 layout: page
 title: Research
 permalink: /research/
+sections:
+  - Embodied learning for neuro-AI
+  - Iterative reasoning
+  - In another life…
 ---
 
 <div class="wrap page-head">
   <h1 class="label">Research</h1>
 
   {% assign research = site.data.research | sort: "date" | reverse %}
-  <div class="stack">
-    {% for item in research %}
-    {% include research-card.html item=item row=true %}
-    {% endfor %}
-  </div>
+  {% for section in page.sections %}
+  {% assign items = research | where: "section", section %}
+  <section class="stack-section{% if forloop.last %} stack-section--past{% endif %}">
+    <h2>{{ section }}</h2>
+    <div class="stack">
+      {% for item in items %}
+      {% include research-card.html item=item row=true %}
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
 </div>
