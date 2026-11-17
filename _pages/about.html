@@ -7,32 +7,8 @@ permalink: /
 <section class="hero">
   <div class="hero__grid">
     <div>
-      <p class="label">{{ site.author.affiliation_line }}</p>
-      <h1>Aidan<br>Sirbu</h1>
-      <p class="hero__tag">{{ site.author.tagline }}</p>
-      <p class="hero__short">{{ site.author.bio-short }}</p>
-
-      <div class="pills">
-        <span>{{ site.author.location }}</span>
-        <button type="button" data-copy-email="{{ site.author.email }}">{{ site.author.email }}</button>
-        {% for node in site.author.social %}
-        {% assign social_key = node[0] %}
-        <a href="{{ node[1] }}" target="_blank" rel="noopener noreferrer">{{ site.data.social_labels[social_key] | default: social_key }}</a>
-        {% endfor %}
-      </div>
-
-    </div>
-
-    <div class="hero__portrait">
-      <img src="{{ site.author.avatar | prepend: '/assets/img/' | relative_url }}" alt="{{ site.author.name }}">
-    </div>
-
-    <div class="logos">
-      {% for logo in site.data.logos %}
-      <a href="{{ logo.url }}" target="_blank" rel="noopener noreferrer">
-        <img src="{{ logo.file | prepend: '/assets/img/logos/' | relative_url }}" alt="{{ logo.alt }}"{% if logo.scale %} style="--logo-scale: {{ logo.scale }}"{% endif %}>
-      </a>
-      {% endfor %}
+      <h1>Aidan Sirbu</h1>
+      <p class="label">{{ site.author.tagline | replace: " | ", "<br>" }}</p>
     </div>
   </div>
 </section>
@@ -48,6 +24,18 @@ permalink: /
         {% endfor %}
       </div>
       <a href="{{ '/research/' | relative_url }}">All research &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--plain">
+  <div class="section__wrap">
+    <div class="logos">
+      {% for logo in site.data.logos %}
+      <a href="{{ logo.url }}" target="_blank" rel="noopener noreferrer">
+        <img src="{{ logo.file | prepend: '/assets/img/logos/' | relative_url }}" alt="{{ logo.alt }}"{% if logo.scale %} style="--logo-scale: {{ logo.scale }}"{% endif %}>
+      </a>
+      {% endfor %}
     </div>
   </div>
 </section>

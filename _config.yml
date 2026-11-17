@@ -9,22 +9,19 @@ timezone: "America/Montreal"
 author:
   name: "Aidan Sirbu"
   tagline: "PhD Student @ Mila + McGill University | Paradigms of Intelligence Team @ Google"
-  avatar: "profile.png"
   og_image: "icon.jpg"
   bio-short: >-
     My research interests lie at the intersection of deep learning, computational neuroscience, and robotics. In one vein, I train embodied agents to investigate theories of motor control and sensorimotor learning. In another, I focus on looped iterative reasoning and self-organizing computation.
   bio: >-
-    <p>I am a PhD student at Mila – Quebec AI Institute and McGill University, supervised by <a href='https://mila.quebec/en/directory/blake-richards' target='_blank' rel='noopener noreferrer'>Dr. Blake A. Richards</a>, and a student researcher on the Paradigms of Intelligence team at Google.</p>
+    <p>I'm a PhD student at Mila – Quebec AI Institute and McGill University, supervised by <a href='https://mila.quebec/en/directory/blake-richards' target='_blank' rel='noopener noreferrer'>Dr. Blake A. Richards</a>, and a student researcher on the Paradigms of Intelligence team at Google.</p>
 
-    <p>Both halves of my work come down to the same question: what does a system actually have to compute in order to act well? On the embodied side, I build simulated animals faithful enough that theories of motor control can be validated against measured behaviour. On the other, I study models that solve problems by repetition, where one shared update run to arbitrary depth does the work usually handed to search or to scale.</p>
+    <p>I'm either building embodied models for neuro-AI or exploring looped reasoning.</p>
     
-    <p>Before I joined Mila, I completed my BSc in Medical Physics at Western University where I worked on projects exploring hyperpolarized magnetic resonance imaging.</p>
+    <p>Before I joined Mila, I completed my BSc in Medical Physics at Western University where I worked on hyperpolarized magnetic resonance imaging.</p>
 
-    <p>In my free time, I am an avid rock climber, hiker, and motorcycle rider.</p>
+    <p>In my free time I rock climb, hike, and ride my motorbike.</p>
 
-    <p>Don't hesitate to reach out if you are interested in collaborating, discussing research, or even just chatting!</p>
   location: "Montréal, Canada"
-  affiliation_line: "Mila · McGill · Google Paradigms of Intelligence"
   cv_updated: "April 2026"
   email: "aidan.sirbu@mila.quebec"
   # Key order drives the icon order in the navbar and the pill order in the
